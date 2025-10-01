@@ -1,0 +1,1631 @@
+<?xml version='1.0' encoding='utf-8' ?>
+
+<!-- build 10500.18.0305.1200                               -->
+<workbook original-version='10.5' source-build='10.5.2 (10500.18.0305.1200)' source-platform='mac' version='10.5' xml:base='https://tableauserver.theinformationlab.co.uk' xmlns:user='http://www.tableausoftware.com/xml/user'>
+  <repository-location derived-from='https://tableauserver.theinformationlab.co.uk/t/project-griffon/workbooks/7_BackgroundTasksforNonExtracts?rev=1.0' id='8_StatsforLoadTimes' path='/t/project-griffon/workbooks' revision='1.0' site='project-griffon' />
+  <preferences>
+    <preference name='ui.encoding.shelf.height' value='24' />
+    <preference name='ui.shelf.height' value='26' />
+  </preferences>
+  <datasources>
+    <datasource hasconnection='false' inline='true' name='Parameters' version='10.5'>
+      <aliases enabled='yes' />
+      <column caption='Min Interactions' datatype='integer' name='[Parameter 3]' param-domain-type='any' role='measure' type='quantitative' value='1'>
+        <calculation class='tableau' formula='1' />
+      </column>
+    </datasource>
+    <datasource caption='Monitor Requests And Users' inline='true' name='postgres.41976.825453032400' version='10.5'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='localhost' name='postgres.41976.825453032400leaf'>
+            <connection authentication='username-password' class='postgres' dbname='workgroup' odbc-native-protocol='yes' one-time-sql='' port='8060' server='til-analytics-on-analytics.celvcvjownp8.eu-west-1.rds.amazonaws.com' server-oauth='' username='tblwgadmin' workgroup-auth-mode='prompt' />
+          </named-connection>
+        </named-connections>
+        <relation join='left' type='join'>
+          <clause type='join'>
+            <expression op='='>
+              <expression op='[_http_requests].[site_id]' />
+              <expression op='[_sites].[id]' />
+            </expression>
+          </clause>
+          <relation join='left' type='join'>
+            <clause type='join'>
+              <expression op='='>
+                <expression op='[_http_requests].[session_id]' />
+                <expression op='[_sessions].[session_id]' />
+              </expression>
+            </clause>
+            <relation join='right' type='join'>
+              <clause type='join'>
+                <expression op='='>
+                  <expression op='[_users].[id]' />
+                  <expression op='[_http_requests].[user_id]' />
+                </expression>
+              </clause>
+              <relation connection='postgres.41976.825453032400leaf' name='_users' table='[public].[_users]' type='table' />
+              <relation connection='postgres.41976.825453032400leaf' name='_http_requests' table='[public].[_http_requests]' type='table' />
+            </relation>
+            <relation connection='postgres.41976.825453032400leaf' name='_sessions' table='[public].[_sessions]' type='table' />
+          </relation>
+          <relation connection='postgres.41976.825453032400leaf' name='_sites' table='[public].[_sites]' type='table' />
+        </relation>
+        <cols>
+          <map key='[action]' value='[_http_requests].[action]' />
+          <map key='[completed_at]' value='[_http_requests].[completed_at]' />
+          <map key='[controller]' value='[_http_requests].[controller]' />
+          <map key='[created_at]' value='[_http_requests].[created_at]' />
+          <map key='[currentsheet]' value='[_http_requests].[currentsheet]' />
+          <map key='[domain_id]' value='[_users].[domain_id]' />
+          <map key='[domain_name]' value='[_users].[domain_name]' />
+          <map key='[domain_short_name]' value='[_users].[domain_short_name]' />
+          <map key='[friendly_name]' value='[_users].[friendly_name]' />
+          <map key='[http_referer]' value='[_http_requests].[http_referer]' />
+          <map key='[http_request_uri]' value='[_http_requests].[http_request_uri]' />
+          <map key='[http_user_agent]' value='[_http_requests].[http_user_agent]' />
+          <map key='[id (_sites)]' value='[_sites].[id]' />
+          <map key='[id]' value='[_users].[id]' />
+          <map key='[licensing_role_id]' value='[_users].[licensing_role_id]' />
+          <map key='[licensing_role_name]' value='[_users].[licensing_role_name]' />
+          <map key='[login_at]' value='[_users].[login_at]' />
+          <map key='[name (_sites)]' value='[_sites].[name]' />
+          <map key='[name]' value='[_users].[name]' />
+          <map key='[port]' value='[_http_requests].[port]' />
+          <map key='[remote_ip]' value='[_http_requests].[remote_ip]' />
+          <map key='[session_id (_sessions)]' value='[_sessions].[session_id]' />
+          <map key='[session_id]' value='[_http_requests].[session_id]' />
+          <map key='[site_id (_http_requests)]' value='[_http_requests].[site_id]' />
+          <map key='[site_id (_sessions)]' value='[_sessions].[site_id]' />
+          <map key='[site_id]' value='[_users].[site_id]' />
+          <map key='[status]' value='[_sites].[status]' />
+          <map key='[system_user_id (_sessions)]' value='[_sessions].[system_user_id]' />
+          <map key='[system_user_id]' value='[_users].[system_user_id]' />
+          <map key='[updated_at]' value='[_sessions].[updated_at]' />
+          <map key='[url_namespace]' value='[_sites].[url_namespace]' />
+          <map key='[user_id (_sessions)]' value='[_sessions].[user_id]' />
+          <map key='[user_id]' value='[_http_requests].[user_id]' />
+          <map key='[user_ip]' value='[_http_requests].[user_ip]' />
+          <map key='[user_name]' value='[_sessions].[user_name]' />
+          <map key='[vizql_session]' value='[_http_requests].[vizql_session]' />
+          <map key='[worker]' value='[_http_requests].[worker]' />
+        </cols>
+        <metadata-records>
+          <metadata-record class='column'>
+            <remote-name>id</remote-name>
+            <remote-type>3</remote-type>
+            <local-name>[id]</local-name>
+            <parent-name>[_users]</parent-name>
+            <remote-alias>id</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>10</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_INTEGER&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_SLONG&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>name</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[name]</local-name>
+            <parent-name>[_users]</parent-name>
+            <remote-alias>name</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>login_at</remote-name>
+            <remote-type>7</remote-type>
+            <local-name>[login_at]</local-name>
+            <parent-name>[_users]</parent-name>
+            <remote-alias>login_at</remote-alias>
+            <ordinal>3</ordinal>
+            <local-type>datetime</local-type>
+            <aggregation>Year</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_TYPE_TIMESTAMP&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_TYPE_TIMESTAMP&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>friendly_name</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[friendly_name]</local-name>
+            <parent-name>[_users]</parent-name>
+            <remote-alias>friendly_name</remote-alias>
+            <ordinal>4</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>licensing_role_id</remote-name>
+            <remote-type>3</remote-type>
+            <local-name>[licensing_role_id]</local-name>
+            <parent-name>[_users]</parent-name>
+            <remote-alias>licensing_role_id</remote-alias>
+            <ordinal>5</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>10</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_INTEGER&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_SLONG&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>licensing_role_name</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[licensing_role_name]</local-name>
+            <parent-name>[_users]</parent-name>
+            <remote-alias>licensing_role_name</remote-alias>
+            <ordinal>6</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>domain_id</remote-name>
+            <remote-type>3</remote-type>
+            <local-name>[domain_id]</local-name>
+            <parent-name>[_users]</parent-name>
+            <remote-alias>domain_id</remote-alias>
+            <ordinal>7</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>10</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_INTEGER&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_SLONG&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>system_user_id</remote-name>
+            <remote-type>3</remote-type>
+            <local-name>[system_user_id]</local-name>
+            <parent-name>[_users]</parent-name>
+            <remote-alias>system_user_id</remote-alias>
+            <ordinal>8</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>10</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_INTEGER&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_SLONG&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>domain_name</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[domain_name]</local-name>
+            <parent-name>[_users]</parent-name>
+            <remote-alias>domain_name</remote-alias>
+            <ordinal>9</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>domain_short_name</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[domain_short_name]</local-name>
+            <parent-name>[_users]</parent-name>
+            <remote-alias>domain_short_name</remote-alias>
+            <ordinal>10</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>80</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>site_id</remote-name>
+            <remote-type>3</remote-type>
+            <local-name>[site_id]</local-name>
+            <parent-name>[_users]</parent-name>
+            <remote-alias>site_id</remote-alias>
+            <ordinal>11</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>10</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_INTEGER&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_SLONG&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>controller</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[controller]</local-name>
+            <parent-name>[_http_requests]</parent-name>
+            <remote-alias>controller</remote-alias>
+            <ordinal>13</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>action</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[action]</local-name>
+            <parent-name>[_http_requests]</parent-name>
+            <remote-alias>action</remote-alias>
+            <ordinal>14</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>http_referer</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[http_referer]</local-name>
+            <parent-name>[_http_requests]</parent-name>
+            <remote-alias>http_referer</remote-alias>
+            <ordinal>15</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>http_user_agent</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[http_user_agent]</local-name>
+            <parent-name>[_http_requests]</parent-name>
+            <remote-alias>http_user_agent</remote-alias>
+            <ordinal>16</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>http_request_uri</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[http_request_uri]</local-name>
+            <parent-name>[_http_requests]</parent-name>
+            <remote-alias>http_request_uri</remote-alias>
+            <ordinal>17</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>8190</width>
+            <contains-null>true</contains-null>
+            <cast-to-local-type>true</cast-to-local-type>
+            <collation flag='0' name='LEN_RUS' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WLONGVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>remote_ip</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[remote_ip]</local-name>
+            <parent-name>[_http_requests]</parent-name>
+            <remote-alias>remote_ip</remote-alias>
+            <ordinal>18</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>created_at</remote-name>
+            <remote-type>7</remote-type>
+            <local-name>[created_at]</local-name>
+            <parent-name>[_http_requests]</parent-name>
+            <remote-alias>created_at</remote-alias>
+            <ordinal>19</ordinal>
+            <local-type>datetime</local-type>
+            <aggregation>Year</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_TYPE_TIMESTAMP&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_TYPE_TIMESTAMP&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>session_id</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[session_id]</local-name>
+            <parent-name>[_http_requests]</parent-name>
+            <remote-alias>session_id</remote-alias>
+            <ordinal>20</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>completed_at</remote-name>
+            <remote-type>7</remote-type>
+            <local-name>[completed_at]</local-name>
+            <parent-name>[_http_requests]</parent-name>
+            <remote-alias>completed_at</remote-alias>
+            <ordinal>21</ordinal>
+            <local-type>datetime</local-type>
+            <aggregation>Year</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_TYPE_TIMESTAMP&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_TYPE_TIMESTAMP&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>port</remote-name>
+            <remote-type>3</remote-type>
+            <local-name>[port]</local-name>
+            <parent-name>[_http_requests]</parent-name>
+            <remote-alias>port</remote-alias>
+            <ordinal>22</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>10</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_INTEGER&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_SLONG&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>user_id</remote-name>
+            <remote-type>3</remote-type>
+            <local-name>[user_id]</local-name>
+            <parent-name>[_http_requests]</parent-name>
+            <remote-alias>user_id</remote-alias>
+            <ordinal>23</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>10</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_INTEGER&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_SLONG&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>worker</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[worker]</local-name>
+            <parent-name>[_http_requests]</parent-name>
+            <remote-alias>worker</remote-alias>
+            <ordinal>24</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>vizql_session</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[vizql_session]</local-name>
+            <parent-name>[_http_requests]</parent-name>
+            <remote-alias>vizql_session</remote-alias>
+            <ordinal>25</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>8190</width>
+            <contains-null>true</contains-null>
+            <cast-to-local-type>true</cast-to-local-type>
+            <collation flag='0' name='LEN_RUS' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WLONGVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>user_ip</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[user_ip]</local-name>
+            <parent-name>[_http_requests]</parent-name>
+            <remote-alias>user_ip</remote-alias>
+            <ordinal>26</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>currentsheet</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[currentsheet]</local-name>
+            <parent-name>[_http_requests]</parent-name>
+            <remote-alias>currentsheet</remote-alias>
+            <ordinal>27</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>site_id</remote-name>
+            <remote-type>3</remote-type>
+            <local-name>[site_id (_http_requests)]</local-name>
+            <parent-name>[_http_requests]</parent-name>
+            <remote-alias>site_id</remote-alias>
+            <ordinal>28</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>10</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_INTEGER&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_SLONG&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>session_id</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[session_id (_sessions)]</local-name>
+            <parent-name>[_sessions]</parent-name>
+            <remote-alias>session_id</remote-alias>
+            <ordinal>30</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>updated_at</remote-name>
+            <remote-type>7</remote-type>
+            <local-name>[updated_at]</local-name>
+            <parent-name>[_sessions]</parent-name>
+            <remote-alias>updated_at</remote-alias>
+            <ordinal>31</ordinal>
+            <local-type>datetime</local-type>
+            <aggregation>Year</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_TYPE_TIMESTAMP&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_TYPE_TIMESTAMP&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>user_id</remote-name>
+            <remote-type>3</remote-type>
+            <local-name>[user_id (_sessions)]</local-name>
+            <parent-name>[_sessions]</parent-name>
+            <remote-alias>user_id</remote-alias>
+            <ordinal>32</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>10</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_INTEGER&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_SLONG&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>user_name</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[user_name]</local-name>
+            <parent-name>[_sessions]</parent-name>
+            <remote-alias>user_name</remote-alias>
+            <ordinal>33</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>system_user_id</remote-name>
+            <remote-type>3</remote-type>
+            <local-name>[system_user_id (_sessions)]</local-name>
+            <parent-name>[_sessions]</parent-name>
+            <remote-alias>system_user_id</remote-alias>
+            <ordinal>34</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>10</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_INTEGER&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_SLONG&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>site_id</remote-name>
+            <remote-type>3</remote-type>
+            <local-name>[site_id (_sessions)]</local-name>
+            <parent-name>[_sessions]</parent-name>
+            <remote-alias>site_id</remote-alias>
+            <ordinal>35</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>10</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_INTEGER&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_SLONG&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>id</remote-name>
+            <remote-type>3</remote-type>
+            <local-name>[id (_sites)]</local-name>
+            <parent-name>[_sites]</parent-name>
+            <remote-alias>id</remote-alias>
+            <ordinal>37</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>10</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_INTEGER&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_SLONG&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>name</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[name (_sites)]</local-name>
+            <parent-name>[_sites]</parent-name>
+            <remote-alias>name</remote-alias>
+            <ordinal>38</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>url_namespace</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[url_namespace]</local-name>
+            <parent-name>[_sites]</parent-name>
+            <remote-alias>url_namespace</remote-alias>
+            <ordinal>39</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>status</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[status]</local-name>
+            <parent-name>[_sites]</parent-name>
+            <remote-alias>status</remote-alias>
+            <ordinal>40</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled='yes' />
+      <column caption='Total Load time' datatype='real' default-format='n#,##0.0;-#,##0.0' name='[Calculation2]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='ZN(Window_SUM([Calculation_5011203204125976]))' scope-isolation='false'>
+          <table-calc ordering-type='Rows' />
+        </calculation>
+      </column>
+      <column caption='async type' datatype='string' name='[Calculation_0911203203805906]' role='measure' type='nominal'>
+        <calculation class='tableau' formula='if LOOKUP(MIN([Calculation_8251203203722951]),0) == 3 then&#10;  &quot;async&quot;&#10;ELSEIF LOOKUP(MIN([Calculation_8251203203722951]),0) != 3  AND LOOKUP(MIN([Calculation_8251203203722951]),1)==3 then&#10;  // The length is computed from the start of the previous&#10;  &quot;start async&quot;&#10;ELSEIF LOOKUP(MIN([Calculation_8251203203722951]),0) != 3  AND LOOKUP(MIN([Calculation_8251203203722951]),-1)==3 then&#10;  // The length is computed from the start of the previous&#10;  &quot;end async&quot;&#10;ELSE&#10;  &quot;standalone&quot;&#10;end'>
+          <table-calc ordering-type='Rows' />
+        </calculation>
+      </column>
+      <column caption='completed_at_local_15_min_bin' datatype='datetime' name='[Calculation_1671205215441463]' role='dimension' type='ordinal'>
+        <calculation class='tableau' formula='datetime(int(float([Calculation_3471203204218240])*96)/96)' />
+      </column>
+      <column caption='request_type' datatype='string' name='[Calculation_2611203203455640]' role='dimension' type='nominal'>
+        <calculation class='tableau' formula='if left(http_request_uri,7) == &quot;/views/&quot; then&#10;  &quot;load_view&quot;&#10;elseif left(http_request_uri,21) == &quot;/vizql/showadminview/&quot; then&#10;  &quot;load_view&quot;&#10;elseif contains(http_request_uri,&quot;bootstrapSession&quot;) then&#10;  &quot;compute_view&quot;&#10;elseif contains(http_request_uri,&quot;/status/&quot;) then&#10;  &quot;status&quot;&#10;else&#10;  &quot;other&quot;&#10;end' />
+        <aliases>
+          <alias key='&quot;compute_view&quot;' value='Render' />
+          <alias key='&quot;load_view&quot;' value='Retrieve' />
+        </aliases>
+      </column>
+      <column caption='site_url' datatype='string' name='[Calculation_3391203205222835]' role='dimension' type='nominal'>
+        <calculation class='tableau' formula='IF [url_namespace] == &apos;&apos; THEN [url_namespace] ELSE &apos;t/&apos; + [url_namespace] + &apos;/&apos; END' />
+      </column>
+      <column caption='completed_at_local' datatype='datetime' name='[Calculation_3471203204218240]' role='dimension' type='ordinal'>
+        <calculation class='tableau' formula='[completed_at]+[tz_offset_days]' />
+      </column>
+      <column caption='num_requests' datatype='integer' name='[Calculation_4411203203842330]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='if LOOKUP(MIN([Calculation_8251203203722951]),0) == 3  AND LOOKUP(MIN([Calculation_8251203203722951]),-1)!=3 then&#10;  // The length is computed from the start of the previous&#10;  2&#10;ELSEIF LOOKUP(MIN([Calculation_8251203203722951]),0) == 3  AND LOOKUP(MIN([Calculation_8251203203722951]),-1)==3 then&#10;  // The length is computed from the start of the previous&#10;  1 + PREVIOUS_VALUE(0)&#10;ELSEIF LOOKUP(MIN([Calculation_8251203203722951]),0) != 3  AND LOOKUP(MIN([Calculation_8251203203722951]),-1)==3 then&#10;  // The length is computed from the start of the previous&#10;  1 + PREVIOUS_VALUE(0)&#10;ELSE&#10;  1&#10;end'>
+          <table-calc ordering-type='Rows' />
+        </calculation>
+      </column>
+      <column caption='num_sessions' datatype='integer' name='[Calculation_4591203203907097]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='countd(session_id)' />
+      </column>
+      <column caption='agg_request_length' datatype='real' name='[Calculation_5011203204125976]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='if LOOKUP(MIN([Calculation_8251203203722951]),0) == 3  AND LOOKUP(MIN([Calculation_8251203203722951]),-1)!=3 then&#10;  // The length is computed from the start of the previous&#10;  (MAX(completed_at)-LOOKUP(MIN([created_at]),-1))*86400&#10;ELSEIF LOOKUP(MIN([Calculation_8251203203722951]),0) == 3  AND LOOKUP(MIN([Calculation_8251203203722951]),-1)==3 then&#10;  // The length is computed from the start of the previous&#10;  (MAX(completed_at)-LOOKUP(MAX([completed_at]),-1))*86400 + PREVIOUS_VALUE(0)&#10;ELSEIF LOOKUP(MIN([Calculation_8251203203722951]),0) != 3  AND LOOKUP(MIN([Calculation_8251203203722951]),-1)==3 then&#10;  // The end of an async operation&#10;  (MAX(completed_at)-LOOKUP(MAX([completed_at]),-1))*86400 + PREVIOUS_VALUE(0)&#10;ELSE&#10;  86400*(MAX(completed_at)-MIN([created_at]))&#10;end'>
+          <table-calc ordering-type='Rows' />
+        </calculation>
+      </column>
+      <column caption='View Load Time' datatype='string' name='[Calculation_5103211714740629508]' role='dimension' type='nominal'>
+        <calculation class='tableau' formula='if     [elapsed_time (copy)] &gt; 10 then &quot;&gt; 10 seconds&quot; &#10;elseif [elapsed_time (copy)] &gt; 5 then &quot;5 - 10 seconds&quot; &#10;elseif [elapsed_time (copy)] &gt; 3 then &quot;3 - 5 seconds&quot; &#10;else &quot;&lt; 3 seconds&quot; END' />
+      </column>
+      <column caption='View URL' datatype='string' name='[Calculation_5531203203614429]' role='dimension' type='nominal'>
+        <calculation class='tableau' formula='if [Calculation_2611203203455640]=&quot;compute_view&quot; then&#10;  [http_referer]&#10;else&#10;  &quot;https://tableauserver.theinformationlab.co.uk&quot;+[http_request_uri]&#10;end' />
+      </column>
+      <column caption='elapsed_time' datatype='real' name='[Calculation_7391203204726330]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='(completed_at-created_at)' />
+      </column>
+      <column caption='created_at_local' datatype='datetime' name='[Calculation_7431203204157460]' role='dimension' type='ordinal'>
+        <calculation class='tableau' formula='[created_at]+[tz_offset_days]' />
+      </column>
+      <column aggregation='Sum' caption='request_code' datatype='integer' name='[Calculation_8251203203722951]' role='dimension' type='ordinal'>
+        <calculation class='tableau' formula='if startswith([http_request_uri],&quot;/views/&quot;) or startswith([http_request_uri], &quot;/vizql/showadminview/&quot;) then&#10;  1&#10;elseif contains([http_request_uri],&quot;/bootstrapSession/&quot;) then&#10;  2&#10;elseif contains([http_request_uri],&quot;/status/&quot;) or contains([http_request_uri],&quot;/errors/&quot;) then&#10;  3&#10;else&#10;  0&#10;end' />
+      </column>
+      <column caption='Bad View?' datatype='boolean' name='[Calculation_8371203203531503]' role='dimension' type='nominal'>
+        <calculation class='tableau' formula='currentsheet == &quot;&quot; or isnull(currentsheet) or isnull(vizql_session)' />
+      </column>
+      <column datatype='integer' name='[Number of Records]' role='measure' type='quantitative' user:auto-column='numrec'>
+        <calculation class='tableau' formula='1' />
+      </column>
+      <column caption='Action' datatype='string' name='[action]' role='dimension' type='nominal' />
+      <column caption='Completed At' datatype='datetime' name='[completed_at]' role='dimension' type='ordinal' />
+      <column caption='Controller' datatype='string' name='[controller]' role='dimension' type='nominal' />
+      <column caption='Created At' datatype='datetime' name='[created_at]' role='dimension' type='ordinal' />
+      <column caption='View Name' datatype='string' name='[currentsheet]' role='dimension' type='nominal' />
+      <column caption='Domain Id' datatype='integer' name='[domain_id]' role='dimension' type='ordinal' />
+      <column caption='Domain Name' datatype='string' name='[domain_name]' role='dimension' type='nominal' />
+      <column caption='Domain Short Name' datatype='string' name='[domain_short_name]' role='dimension' type='nominal' />
+      <column caption='elapsed_time_sec' datatype='real' default-format='n#,##0.0;-#,##0.0' name='[elapsed_time (copy)]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='[Calculation_7391203204726330]*86400' />
+      </column>
+      <column caption='Friendly Name' datatype='string' name='[friendly_name]' role='dimension' type='nominal' />
+      <column caption='Http Referer' datatype='string' name='[http_referer]' role='dimension' type='nominal' />
+      <column caption='Http Request Uri' datatype='string' name='[http_request_uri]' role='dimension' type='nominal' />
+      <column caption='Http User Agent' datatype='string' name='[http_user_agent]' role='dimension' type='nominal' />
+      <column caption='Id ( Sites)' datatype='integer' name='[id (_sites)]' role='dimension' type='ordinal' />
+      <column caption='Id' datatype='integer' name='[id]' role='dimension' type='ordinal' />
+      <column caption='Licensing Role Id' datatype='integer' name='[licensing_role_id]' role='dimension' type='ordinal' />
+      <column caption='Licensing Role Name' datatype='string' name='[licensing_role_name]' role='dimension' type='nominal' />
+      <column caption='Login At' datatype='datetime' name='[login_at]' role='dimension' type='ordinal' />
+      <column caption='Site' datatype='string' name='[name (_sites)]' role='dimension' type='nominal' />
+      <column caption='Name' datatype='string' name='[name]' role='dimension' type='nominal' />
+      <column caption='Port' datatype='integer' name='[port]' role='measure' type='quantitative' />
+      <column caption='Remote Ip' datatype='string' name='[remote_ip]' role='dimension' type='nominal' />
+      <column caption='Session Id ( Sessions)' datatype='string' name='[session_id (_sessions)]' role='dimension' type='nominal' />
+      <column caption='Session Id' datatype='string' name='[session_id]' role='dimension' type='nominal' />
+      <column caption='Site Id ( Http Requests)' datatype='integer' name='[site_id (_http_requests)]' role='dimension' type='ordinal' />
+      <column caption='Site Id ( Sessions)' datatype='integer' name='[site_id (_sessions)]' role='dimension' type='ordinal' />
+      <column caption='Site Id' datatype='integer' name='[site_id]' role='dimension' type='ordinal' />
+      <column caption='Status' datatype='string' name='[status]' role='dimension' type='nominal' />
+      <column caption='System User Id ( Sessions)' datatype='integer' name='[system_user_id (_sessions)]' role='dimension' type='ordinal' />
+      <column caption='System User Id' datatype='integer' name='[system_user_id]' role='dimension' type='ordinal' />
+      <column datatype='real' name='[tz_offset_days]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='0.041666666666666664' />
+      </column>
+      <column caption='Updated At' datatype='datetime' name='[updated_at]' role='dimension' type='ordinal' />
+      <column caption='Url Namespace' datatype='string' name='[url_namespace]' role='dimension' type='nominal' />
+      <column caption='User Id ( Sessions)' datatype='integer' name='[user_id (_sessions)]' role='dimension' type='ordinal' />
+      <column caption='User Id' datatype='integer' name='[user_id]' role='dimension' type='ordinal' />
+      <column caption='User Ip' datatype='string' name='[user_ip]' role='dimension' type='nominal' />
+      <column caption='User Name' datatype='string' name='[user_name]' role='dimension' type='nominal' />
+      <column caption='Vizql Session' datatype='string' name='[vizql_session]' role='dimension' type='nominal' />
+      <column caption='Worker' datatype='string' name='[worker]' role='dimension' type='nominal' />
+      <column-instance column='[Calculation_2611203203455640]' derivation='None' name='[none:Calculation_2611203203455640:nk]' pivot='key' type='nominal' />
+      <column-instance column='[Calculation_5103211714740629508]' derivation='None' name='[none:Calculation_5103211714740629508:nk]' pivot='key' type='nominal' />
+      <column-instance column='[Calculation_3471203204218240]' derivation='Hour-Trunc' name='[thr:Calculation_3471203204218240:ok]' pivot='key' type='ordinal' />
+      <column-instance column='[Calculation_3471203204218240]' derivation='Minute-Trunc' name='[tmi:Calculation_3471203204218240:ok]' pivot='key' type='ordinal' />
+      <group caption='Action (Currentsheet)' hidden='true' name='[Action (Currentsheet)]' name-style='unqualified' user:auto-column='sheet_link'>
+        <groupfilter function='crossjoin'>
+          <groupfilter function='level-members' level='[currentsheet]' />
+        </groupfilter>
+      </group>
+      <group caption='Action (HOUR(completed_at_local))' hidden='true' name='[Action (HOUR(completed_at_local))]' name-style='unqualified' user:auto-column='sheet_link'>
+        <groupfilter function='crossjoin'>
+          <groupfilter function='level-members' level='[thr:Calculation_3471203204218240:ok]' />
+        </groupfilter>
+      </group>
+      <group caption='Action (HOUR(completed_at_local),View Load Time)' hidden='true' name='[Action (HOUR(completed_at_local),View Load Time)]' name-style='unqualified' user:auto-column='sheet_link'>
+        <groupfilter function='crossjoin'>
+          <groupfilter function='level-members' level='[thr:Calculation_3471203204218240:ok]' />
+          <groupfilter function='level-members' level='[Calculation_5103211714740629508]' />
+        </groupfilter>
+      </group>
+      <group caption='Action (MINUTE(completed_at_local))' hidden='true' name='[Action (MINUTE(completed_at_local))]' name-style='unqualified' user:auto-column='sheet_link'>
+        <groupfilter function='crossjoin'>
+          <groupfilter function='level-members' level='[tmi:Calculation_3471203204218240:ok]' />
+        </groupfilter>
+      </group>
+      <group caption='Action (View Load Time)' hidden='true' name='[Action (View Load Time)]' name-style='unqualified' user:auto-column='sheet_link'>
+        <groupfilter function='crossjoin'>
+          <groupfilter function='level-members' level='[Calculation_5103211714740629508]' />
+        </groupfilter>
+      </group>
+      <group caption='Action (View Name)' hidden='true' name='[Action (View Name)]' name-style='unqualified' user:auto-column='sheet_link'>
+        <groupfilter function='crossjoin'>
+          <groupfilter function='level-members' level='[currentsheet]' />
+        </groupfilter>
+      </group>
+      <group caption='Action (completed_at_local_15_min_bin)' hidden='true' name='[Action (completed_at_local_15_min_bin)]' name-style='unqualified' user:auto-column='sheet_link'>
+        <groupfilter function='crossjoin'>
+          <groupfilter function='level-members' level='[Calculation_1671205215441463]' />
+        </groupfilter>
+      </group>
+      <layout dim-ordering='alphabetic' dim-percentage='0.68327' measure-ordering='alphabetic' measure-percentage='0.287356' parameter-percentage='0.0293742' show-structure='true' />
+      <style>
+        <style-rule element='mark'>
+          <encoding attr='color' field='[none:Calculation_2611203203455640:nk]' type='palette'>
+            <map to='#2ca02c'>
+              <bucket>&quot;other&quot;</bucket>
+            </map>
+            <map to='#67bf5c'>
+              <bucket>%all%</bucket>
+            </map>
+            <map to='#7b66d2'>
+              <bucket>&quot;compute_view&quot;</bucket>
+            </map>
+            <map to='#94917b'>
+              <bucket>&quot;load_view&quot;</bucket>
+            </map>
+          </encoding>
+          <encoding attr='color' field='[none:Calculation_5103211714740629508:nk]' type='palette'>
+            <map to='#59a14f'>
+              <bucket>&quot;&lt; 3 seconds&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;3 - 5 seconds&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;&gt; 10 seconds&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;5 - 10 seconds&quot;</bucket>
+            </map>
+          </encoding>
+        </style-rule>
+      </style>
+      <semantic-values>
+        <semantic-value key='[Country].[Name]' value='&quot;United States&quot;' />
+      </semantic-values>
+    </datasource>
+    <datasource caption='Start Times For Sessions' inline='true' name='postgres.41976.827028101800' version='10.5'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='localhost' name='postgres.41976.827028101800leaf'>
+            <connection authentication='username-password' class='postgres' dbname='workgroup' odbc-native-protocol='yes' one-time-sql='' port='8060' server='til-analytics-on-analytics.celvcvjownp8.eu-west-1.rds.amazonaws.com' server-oauth='' username='tblwgadmin' workgroup-auth-mode='prompt' />
+          </named-connection>
+        </named-connections>
+        <relation connection='postgres.41976.827028101800leaf' name='TableauSQL' type='text'>SELECT http_requests.vizql_session AS vizql_session,&#10;  MIN(http_requests.created_at) AS session_start_time&#10;FROM public._http_requests http_requests&#10;WHERE vizql_session IS NOT NULL&#10;GROUP BY vizql_session</relation>
+        <metadata-records>
+          <metadata-record class='column'>
+            <remote-name>vizql_session</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[vizql_session]</local-name>
+            <parent-name>[TableauSQL]</parent-name>
+            <remote-alias>vizql_session</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>8190</width>
+            <contains-null>true</contains-null>
+            <cast-to-local-type>true</cast-to-local-type>
+            <collation flag='0' name='LEN_RUS' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WLONGVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>session_start_time</remote-name>
+            <remote-type>7</remote-type>
+            <local-name>[session_start_time]</local-name>
+            <parent-name>[TableauSQL]</parent-name>
+            <remote-alias>session_start_time</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>datetime</local-type>
+            <aggregation>Year</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_TYPE_TIMESTAMP&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_TYPE_TIMESTAMP&quot;</attribute>
+            </attributes>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled='yes' />
+      <column caption='Local Session Start Time' datatype='datetime' name='[Calculation_9571203204005081]' role='dimension' type='ordinal'>
+        <calculation class='tableau' formula='[session_start_time]+[tz_offset_days]' />
+      </column>
+      <column datatype='integer' name='[Number of Records]' role='measure' type='quantitative' user:auto-column='numrec'>
+        <calculation class='tableau' formula='1' />
+      </column>
+      <column datatype='real' name='[tz_offset_days]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='0.041666666666666664' />
+      </column>
+      <layout dim-ordering='alphabetic' dim-percentage='0.37037' measure-ordering='alphabetic' measure-percentage='0.339719' parameter-percentage='0.289911' show-structure='true' />
+      <semantic-values>
+        <semantic-value key='[Country].[Name]' value='&quot;United States&quot;' />
+      </semantic-values>
+    </datasource>
+  </datasources>
+  <datasource-relationships>
+    <datasource-dependencies datasource='postgres.41976.825453032400'>
+      <column-instance column='[vizql_session]' derivation='None' name='[none:vizql_session:nk]' pivot='key' type='nominal' />
+      <column caption='Vizql Session' datatype='string' name='[vizql_session]' role='dimension' type='nominal' />
+    </datasource-dependencies>
+    <datasource-dependencies datasource='postgres.41976.827028101800'>
+      <column-instance column='[vizql_session]' derivation='None' name='[none:vizql_session:nk]' pivot='key' type='nominal' />
+      <column datatype='string' name='[vizql_session]' role='dimension' type='nominal' />
+    </datasource-dependencies>
+    <datasource-relationship source='postgres.41976.827028101800' target='postgres.41976.825453032400'>
+      <column-mapping>
+        <map key='[postgres.41976.827028101800].[none:vizql_session:nk]' value='[postgres.41976.825453032400].[none:vizql_session:nk]' />
+      </column-mapping>
+    </datasource-relationship>
+  </datasource-relationships>
+  <actions>
+    <action caption='Select Time' name='[Action1]'>
+      <activation auto-clear='true' type='on-select' />
+      <source dashboard='Stats for Load Times' type='sheet' worksheet='What Are The Average Load Times for Views?' />
+      <link caption='Select Time' delimiter=',' escape='\' expression='tsl:Stats%20for%20Load%20Times?%5Bpostgres.41976.825453032400%5D.%5Btmi%3ACalculation_3471203204218240%3Aok%5D~s0=&lt;[tmi:Calculation_3471203204218240:ok]~na&gt;' include-null='true' multi-select='true' url-escape='true' />
+      <command command='tsc:tsl-filter'>
+        <param name='exclude' value='What Are The Average Load Times for Views?' />
+        <param name='target' value='Stats for Load Times' />
+      </command>
+    </action>
+    <action caption='Select View' name='[Action2]'>
+      <activation auto-clear='true' type='on-select' />
+      <source dashboard='Stats for Load Times' type='sheet' worksheet='What is the Exact Load Time For Views?' />
+      <link caption='Select View' delimiter=',' escape='\' expression='tsl:Stats%20for%20Load%20Times?%5Bpostgres.41976.825453032400%5D.%5Bcurrentsheet%5D~s0=&lt;[currentsheet]~na&gt;' include-null='true' multi-select='true' url-escape='true' />
+      <command command='tsc:tsl-filter'>
+        <param name='exclude' value='What is the Exact Load Time For Views?' />
+        <param name='target' value='Stats for Load Times' />
+      </command>
+    </action>
+    <action caption='Go to View' name='[Action3]'>
+      <source dashboard='Stats for Load Times' type='sheet' worksheet='What is the Exact Load Time For Views?' />
+      <link caption='Go to View' expression='&lt;[Calculation_5531203203614429]&gt;' />
+    </action>
+    <datasources>
+      <datasource caption='Monitor Requests And Users' name='postgres.41976.825453032400' />
+    </datasources>
+    <datasource-dependencies datasource='postgres.41976.825453032400'>
+      <column caption='completed_at_local' datatype='datetime' name='[Calculation_3471203204218240]' role='dimension' type='ordinal'>
+        <calculation class='tableau' formula='[completed_at]+[tz_offset_days]' />
+      </column>
+      <column caption='View URL' datatype='string' name='[Calculation_5531203203614429]' role='dimension' type='nominal'>
+        <calculation class='tableau' formula='if [Calculation_2611203203455640]=&quot;compute_view&quot; then&#10;  [http_referer]&#10;else&#10;  &quot;https://tableauserver.theinformationlab.co.uk&quot;+[http_request_uri]&#10;end' />
+      </column>
+      <column caption='View Name' datatype='string' name='[currentsheet]' role='dimension' type='nominal' />
+      <column-instance column='[Calculation_3471203204218240]' derivation='Minute-Trunc' name='[tmi:Calculation_3471203204218240:ok]' pivot='key' type='ordinal' />
+    </datasource-dependencies>
+  </actions>
+  <worksheets>
+    <worksheet name='Sheet 1'>
+      <table>
+        <view>
+          <datasources />
+          <aggregation value='true' />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+          </pane>
+        </panes>
+        <rows />
+        <cols />
+      </table>
+    </worksheet>
+    <worksheet name='What Are The Average Load Times for Views?'>
+      <repository-location id='WhatAreTheAverageLoadTimesforViews' path='/t/project-griffon/workbooks/8_StatsforLoadTimes' revision='' site='project-griffon' />
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run>What Are the Average Load times for Views?</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='Monitor Requests And Users' name='postgres.41976.825453032400' />
+          </datasources>
+          <datasource-dependencies datasource='postgres.41976.825453032400'>
+            <column caption='request_type' datatype='string' name='[Calculation_2611203203455640]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='if left(http_request_uri,7) == &quot;/views/&quot; then&#10;  &quot;load_view&quot;&#10;elseif left(http_request_uri,21) == &quot;/vizql/showadminview/&quot; then&#10;  &quot;load_view&quot;&#10;elseif contains(http_request_uri,&quot;bootstrapSession&quot;) then&#10;  &quot;compute_view&quot;&#10;elseif contains(http_request_uri,&quot;/status/&quot;) then&#10;  &quot;status&quot;&#10;else&#10;  &quot;other&quot;&#10;end' />
+              <aliases>
+                <alias key='&quot;compute_view&quot;' value='Render' />
+                <alias key='&quot;load_view&quot;' value='Retrieve' />
+              </aliases>
+            </column>
+            <column caption='completed_at_local' datatype='datetime' name='[Calculation_3471203204218240]' role='dimension' type='ordinal'>
+              <calculation class='tableau' formula='[completed_at]+[tz_offset_days]' />
+            </column>
+            <column caption='elapsed_time' datatype='real' name='[Calculation_7391203204726330]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='(completed_at-created_at)' />
+            </column>
+            <column caption='Bad View?' datatype='boolean' name='[Calculation_8371203203531503]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='currentsheet == &quot;&quot; or isnull(currentsheet) or isnull(vizql_session)' />
+            </column>
+            <column-instance column='[elapsed_time (copy)]' derivation='Avg' name='[avg:elapsed_time (copy):qk]' pivot='key' type='quantitative' />
+            <column caption='Completed At' datatype='datetime' name='[completed_at]' role='dimension' type='ordinal' />
+            <column caption='Created At' datatype='datetime' name='[created_at]' role='dimension' type='ordinal' />
+            <column caption='View Name' datatype='string' name='[currentsheet]' role='dimension' type='nominal' />
+            <column caption='elapsed_time_sec' datatype='real' default-format='n#,##0.0;-#,##0.0' name='[elapsed_time (copy)]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='[Calculation_7391203204726330]*86400' />
+            </column>
+            <column caption='Http Request Uri' datatype='string' name='[http_request_uri]' role='dimension' type='nominal' />
+            <column caption='Site' datatype='string' name='[name (_sites)]' role='dimension' type='nominal' />
+            <column-instance column='[Calculation_2611203203455640]' derivation='None' name='[none:Calculation_2611203203455640:nk]' pivot='key' type='nominal' />
+            <column-instance column='[Calculation_8371203203531503]' derivation='None' name='[none:Calculation_8371203203531503:nk]' pivot='key' type='nominal' />
+            <column-instance column='[completed_at]' derivation='None' name='[none:completed_at:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[currentsheet]' derivation='None' name='[none:currentsheet:nk]' pivot='key' type='nominal' />
+            <column-instance column='[name (_sites)]' derivation='None' name='[none:name (_sites):nk]' pivot='key' type='nominal' />
+            <column-instance column='[Calculation_3471203204218240]' derivation='Minute-Trunc' name='[tmi:Calculation_3471203204218240:qk]' pivot='key' type='quantitative' />
+            <column datatype='real' name='[tz_offset_days]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='0.041666666666666664' />
+            </column>
+            <column caption='Vizql Session' datatype='string' name='[vizql_session]' role='dimension' type='nominal' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[postgres.41976.825453032400].[Action (Currentsheet)]'>
+            <groupfilter function='level-members' level='[currentsheet]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[postgres.41976.825453032400].[Action (View Name)]'>
+            <groupfilter function='level-members' level='[currentsheet]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='quantitative' column='[postgres.41976.825453032400].[avg:elapsed_time (copy):qk]' included-values='in-range' />
+          <filter class='categorical' column='[postgres.41976.825453032400].[none:Calculation_2611203203455640:nk]'>
+            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:Calculation_2611203203455640:nk]' member='&quot;compute_view&quot;' />
+              <groupfilter function='member' level='[none:Calculation_2611203203455640:nk]' member='&quot;load_view&quot;' />
+            </groupfilter>
+          </filter>
+          <filter class='categorical' column='[postgres.41976.825453032400].[none:Calculation_8371203203531503:nk]'>
+            <groupfilter function='member' level='[none:Calculation_8371203203531503:nk]' member='false' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='relative-date' column='[postgres.41976.825453032400].[none:completed_at:qk]' filter-group='3' first-period='-59' include-future='true' include-null='false' last-period='0' period-type='year' />
+          <filter class='categorical' column='[postgres.41976.825453032400].[none:currentsheet:nk]' filter-group='18'>
+            <groupfilter function='level-members' level='[none:currentsheet:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[postgres.41976.825453032400].[none:name (_sites):nk]' filter-group='19'>
+            <groupfilter function='level-members' level='[none:name (_sites):nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <slices>
+            <column>[postgres.41976.825453032400].[none:Calculation_2611203203455640:nk]</column>
+            <column>[postgres.41976.825453032400].[none:Calculation_8371203203531503:nk]</column>
+            <column>[postgres.41976.825453032400].[none:currentsheet:nk]</column>
+            <column>[postgres.41976.825453032400].[none:completed_at:qk]</column>
+            <column>[postgres.41976.825453032400].[Action (Currentsheet)]</column>
+            <column>[postgres.41976.825453032400].[none:name (_sites):nk]</column>
+            <column>[postgres.41976.825453032400].[Action (View Name)]</column>
+            <column>[postgres.41976.825453032400].[avg:elapsed_time (copy):qk]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <format attr='title' class='0' field='[postgres.41976.825453032400].[avg:elapsed_time (copy):qk]' scope='rows' value='Time (sec)' />
+            <format attr='subtitle' class='0' field='[postgres.41976.825453032400].[avg:elapsed_time (copy):qk]' scope='rows' value='' />
+            <format attr='auto-subtitle' class='0' field='[postgres.41976.825453032400].[avg:elapsed_time (copy):qk]' scope='rows' value='true' />
+            <encoding attr='space' class='0' field='[postgres.41976.825453032400].[avg:elapsed_time (copy):qk]' field-type='quantitative' range-type='independent' scope='rows' type='space' />
+            <format attr='title' class='0' field='[postgres.41976.825453032400].[tmi:Calculation_3471203204218240:qk]' scope='cols' value='' />
+            <format attr='subtitle' class='0' field='[postgres.41976.825453032400].[tmi:Calculation_3471203204218240:qk]' scope='cols' value='' />
+            <format attr='auto-subtitle' class='0' field='[postgres.41976.825453032400].[tmi:Calculation_3471203204218240:qk]' scope='cols' value='false' />
+          </style-rule>
+          <style-rule element='header'>
+            <format attr='width' field='[postgres.41976.825453032400].[none:Calculation_2611203203455640:nk]' value='116' />
+          </style-rule>
+          <style-rule element='worksheet'>
+            <format attr='display-field-labels' scope='rows' value='false' />
+          </style-rule>
+          <style-rule element='quick-filter'>
+            <format attr='title' field='[postgres.41976.825453032400].[none:completed_at:qk]' value='Time Range' />
+            <format attr='title' field='[postgres.41976.825453032400].[avg:elapsed_time (copy):qk]' value='Load Time (sec)' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane id='2' selection-relaxation-option='selection-relaxation-disallow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <customized-tooltip>
+              <formatted-text>
+                <run fontcolor='#787878'>Date:  </run>
+                <run bold='true'>&lt;[postgres.41976.825453032400].[tmi:Calculation_3471203204218240:qk]&gt;</run>
+                <run fontcolor='#787878'>&#10;Avg. Elapsed Time:  </run>
+                <run bold='true'>&lt;[postgres.41976.825453032400].[sum:elapsed_time (copy):qk]&gt;</run>
+                <run bold='true'>Æ </run>
+                <run>seconds</run>
+              </formatted-text>
+            </customized-tooltip>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-cull' value='true' />
+                <format attr='mark-labels-show' value='false' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows total='true'>[postgres.41976.825453032400].[avg:elapsed_time (copy):qk]</rows>
+        <cols>[postgres.41976.825453032400].[tmi:Calculation_3471203204218240:qk]</cols>
+        <show-full-range>
+          <column>[postgres.41976.825453032400].[Minute of Completed (bin)]</column>
+        </show-full-range>
+      </table>
+    </worksheet>
+    <worksheet name='What is the Exact Load Time For Views?'>
+      <repository-location id='WhatistheExactLoadTimeForViews' path='/t/project-griffon/workbooks/8_StatsforLoadTimes' revision='' site='project-griffon' />
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run>What Are the Exact Load times for Views?</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='Monitor Requests And Users' name='postgres.41976.825453032400' />
+            <datasource caption='Start Times For Sessions' name='postgres.41976.827028101800' />
+          </datasources>
+          <datasource-dependencies datasource='postgres.41976.825453032400'>
+            <column caption='Total Load time' datatype='real' default-format='n#,##0.0;-#,##0.0' name='[Calculation2]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='ZN(Window_SUM([Calculation_5011203204125976]))' scope-isolation='false'>
+                <table-calc ordering-type='Rows' />
+              </calculation>
+            </column>
+            <column caption='async type' datatype='string' name='[Calculation_0911203203805906]' role='measure' type='nominal'>
+              <calculation class='tableau' formula='if LOOKUP(MIN([Calculation_8251203203722951]),0) == 3 then&#10;  &quot;async&quot;&#10;ELSEIF LOOKUP(MIN([Calculation_8251203203722951]),0) != 3  AND LOOKUP(MIN([Calculation_8251203203722951]),1)==3 then&#10;  // The length is computed from the start of the previous&#10;  &quot;start async&quot;&#10;ELSEIF LOOKUP(MIN([Calculation_8251203203722951]),0) != 3  AND LOOKUP(MIN([Calculation_8251203203722951]),-1)==3 then&#10;  // The length is computed from the start of the previous&#10;  &quot;end async&quot;&#10;ELSE&#10;  &quot;standalone&quot;&#10;end'>
+                <table-calc ordering-type='Rows' />
+              </calculation>
+            </column>
+            <column caption='request_type' datatype='string' name='[Calculation_2611203203455640]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='if left(http_request_uri,7) == &quot;/views/&quot; then&#10;  &quot;load_view&quot;&#10;elseif left(http_request_uri,21) == &quot;/vizql/showadminview/&quot; then&#10;  &quot;load_view&quot;&#10;elseif contains(http_request_uri,&quot;bootstrapSession&quot;) then&#10;  &quot;compute_view&quot;&#10;elseif contains(http_request_uri,&quot;/status/&quot;) then&#10;  &quot;status&quot;&#10;else&#10;  &quot;other&quot;&#10;end' />
+              <aliases>
+                <alias key='&quot;compute_view&quot;' value='Render' />
+                <alias key='&quot;load_view&quot;' value='Retrieve' />
+              </aliases>
+            </column>
+            <column caption='site_url' datatype='string' name='[Calculation_3391203205222835]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='IF [url_namespace] == &apos;&apos; THEN [url_namespace] ELSE &apos;t/&apos; + [url_namespace] + &apos;/&apos; END' />
+            </column>
+            <column caption='completed_at_local' datatype='datetime' name='[Calculation_3471203204218240]' role='dimension' type='ordinal'>
+              <calculation class='tableau' formula='[completed_at]+[tz_offset_days]' />
+            </column>
+            <column caption='num_requests' datatype='integer' name='[Calculation_4411203203842330]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='if LOOKUP(MIN([Calculation_8251203203722951]),0) == 3  AND LOOKUP(MIN([Calculation_8251203203722951]),-1)!=3 then&#10;  // The length is computed from the start of the previous&#10;  2&#10;ELSEIF LOOKUP(MIN([Calculation_8251203203722951]),0) == 3  AND LOOKUP(MIN([Calculation_8251203203722951]),-1)==3 then&#10;  // The length is computed from the start of the previous&#10;  1 + PREVIOUS_VALUE(0)&#10;ELSEIF LOOKUP(MIN([Calculation_8251203203722951]),0) != 3  AND LOOKUP(MIN([Calculation_8251203203722951]),-1)==3 then&#10;  // The length is computed from the start of the previous&#10;  1 + PREVIOUS_VALUE(0)&#10;ELSE&#10;  1&#10;end'>
+                <table-calc ordering-type='Rows' />
+              </calculation>
+            </column>
+            <column caption='agg_request_length' datatype='real' name='[Calculation_5011203204125976]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='if LOOKUP(MIN([Calculation_8251203203722951]),0) == 3  AND LOOKUP(MIN([Calculation_8251203203722951]),-1)!=3 then&#10;  // The length is computed from the start of the previous&#10;  (MAX(completed_at)-LOOKUP(MIN([created_at]),-1))*86400&#10;ELSEIF LOOKUP(MIN([Calculation_8251203203722951]),0) == 3  AND LOOKUP(MIN([Calculation_8251203203722951]),-1)==3 then&#10;  // The length is computed from the start of the previous&#10;  (MAX(completed_at)-LOOKUP(MAX([completed_at]),-1))*86400 + PREVIOUS_VALUE(0)&#10;ELSEIF LOOKUP(MIN([Calculation_8251203203722951]),0) != 3  AND LOOKUP(MIN([Calculation_8251203203722951]),-1)==3 then&#10;  // The end of an async operation&#10;  (MAX(completed_at)-LOOKUP(MAX([completed_at]),-1))*86400 + PREVIOUS_VALUE(0)&#10;ELSE&#10;  86400*(MAX(completed_at)-MIN([created_at]))&#10;end'>
+                <table-calc ordering-type='Rows' />
+              </calculation>
+            </column>
+            <column caption='View URL' datatype='string' name='[Calculation_5531203203614429]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='if [Calculation_2611203203455640]=&quot;compute_view&quot; then&#10;  [http_referer]&#10;else&#10;  &quot;https://tableauserver.theinformationlab.co.uk&quot;+[http_request_uri]&#10;end' />
+            </column>
+            <column caption='elapsed_time' datatype='real' name='[Calculation_7391203204726330]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='(completed_at-created_at)' />
+            </column>
+            <column caption='created_at_local' datatype='datetime' name='[Calculation_7431203204157460]' role='dimension' type='ordinal'>
+              <calculation class='tableau' formula='[created_at]+[tz_offset_days]' />
+            </column>
+            <column aggregation='Sum' caption='request_code' datatype='integer' name='[Calculation_8251203203722951]' role='dimension' type='ordinal'>
+              <calculation class='tableau' formula='if startswith([http_request_uri],&quot;/views/&quot;) or startswith([http_request_uri], &quot;/vizql/showadminview/&quot;) then&#10;  1&#10;elseif contains([http_request_uri],&quot;/bootstrapSession/&quot;) then&#10;  2&#10;elseif contains([http_request_uri],&quot;/status/&quot;) or contains([http_request_uri],&quot;/errors/&quot;) then&#10;  3&#10;else&#10;  0&#10;end' />
+            </column>
+            <column caption='Bad View?' datatype='boolean' name='[Calculation_8371203203531503]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='currentsheet == &quot;&quot; or isnull(currentsheet) or isnull(vizql_session)' />
+            </column>
+            <column-instance column='[elapsed_time (copy)]' derivation='Avg' name='[avg:elapsed_time (copy):qk]' pivot='key' type='quantitative' />
+            <column caption='Completed At' datatype='datetime' name='[completed_at]' role='dimension' type='ordinal' />
+            <column caption='Created At' datatype='datetime' name='[created_at]' role='dimension' type='ordinal' />
+            <column caption='View Name' datatype='string' name='[currentsheet]' role='dimension' type='nominal' />
+            <column caption='elapsed_time_sec' datatype='real' default-format='n#,##0.0;-#,##0.0' name='[elapsed_time (copy)]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='[Calculation_7391203204726330]*86400' />
+            </column>
+            <column caption='Http Referer' datatype='string' name='[http_referer]' role='dimension' type='nominal' />
+            <column caption='Http Request Uri' datatype='string' name='[http_request_uri]' role='dimension' type='nominal' />
+            <column-instance column='[elapsed_time (copy)]' derivation='Max' name='[max:elapsed_time (copy):qk]' pivot='key' type='quantitative' />
+            <column caption='Site' datatype='string' name='[name (_sites)]' role='dimension' type='nominal' />
+            <column-instance column='[Calculation_2611203203455640]' derivation='None' name='[none:Calculation_2611203203455640:nk]' pivot='key' type='nominal' />
+            <column-instance column='[Calculation_3391203205222835]' derivation='None' name='[none:Calculation_3391203205222835:nk]' pivot='key' type='nominal' />
+            <column-instance column='[Calculation_5531203203614429]' derivation='None' name='[none:Calculation_5531203203614429:nk]' pivot='key' type='nominal' />
+            <column-instance column='[Calculation_7431203204157460]' derivation='None' name='[none:Calculation_7431203204157460:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[Calculation_8251203203722951]' derivation='None' name='[none:Calculation_8251203203722951:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[Calculation_8371203203531503]' derivation='None' name='[none:Calculation_8371203203531503:nk]' pivot='key' type='nominal' />
+            <column-instance column='[completed_at]' derivation='None' name='[none:completed_at:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[currentsheet]' derivation='None' name='[none:currentsheet:nk]' pivot='key' type='nominal' />
+            <column-instance column='[http_request_uri]' derivation='None' name='[none:http_request_uri:nk]' pivot='key' type='nominal' />
+            <column-instance column='[name (_sites)]' derivation='None' name='[none:name (_sites):nk]' pivot='key' type='nominal' />
+            <column-instance column='[vizql_session]' derivation='None' name='[none:vizql_session:nk]' pivot='key' type='nominal' />
+            <column-instance column='[Calculation_3471203204218240]' derivation='Minute-Trunc' name='[tmi:Calculation_3471203204218240:ok]' pivot='key' type='ordinal' />
+            <column datatype='real' name='[tz_offset_days]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='0.041666666666666664' />
+            </column>
+            <column caption='Url Namespace' datatype='string' name='[url_namespace]' role='dimension' type='nominal' />
+            <column-instance column='[Calculation2]' derivation='User' name='[usr:Calculation2:qk:1]' pivot='key' type='quantitative'>
+              <table-calc level-address='[postgres.41976.825453032400].[Calculation_2611203203455640]' ordering-type='Field'>
+                <order field='[postgres.41976.825453032400].[Calculation_2611203203455640]' />
+                <order field='[postgres.41976.825453032400].[name (_sites)]' />
+                <order field='[postgres.41976.825453032400].[Calculation_7431203204157460]' />
+                <order field='[postgres.41976.825453032400].[http_request_uri]' />
+                <order field='[postgres.41976.827028101800].[Calculation_9571203204005081]' />
+                <order field='[postgres.41976.825453032400].[Calculation_8251203203722951]' />
+                <order field='[postgres.41976.825453032400].[Calculation_3391203205222835]' />
+                <order field='[postgres.41976.825453032400].[currentsheet]' />
+                <order field='[postgres.41976.825453032400].[Calculation_5531203203614429]' />
+              </table-calc>
+              <table-calc field='[postgres.41976.825453032400].[Calculation_5011203204125976]' ordering-type='Rows' />
+            </column-instance>
+            <column-instance column='[Calculation_0911203203805906]' derivation='User' name='[usr:Calculation_0911203203805906:nk:1]' pivot='key' type='nominal'>
+              <table-calc ordering-type='Columns' />
+            </column-instance>
+            <column-instance column='[Calculation_4411203203842330]' derivation='User' name='[usr:Calculation_4411203203842330:qk]' pivot='key' type='quantitative'>
+              <table-calc ordering-type='Columns' />
+            </column-instance>
+            <column caption='Vizql Session' datatype='string' name='[vizql_session]' role='dimension' type='nominal' />
+          </datasource-dependencies>
+          <datasource-dependencies datasource='postgres.41976.827028101800'>
+            <column caption='Local Session Start Time' datatype='datetime' name='[Calculation_9571203204005081]' role='dimension' type='ordinal'>
+              <calculation class='tableau' formula='[session_start_time]+[tz_offset_days]' />
+            </column>
+            <column-instance column='[Calculation_9571203204005081]' derivation='None' name='[none:Calculation_9571203204005081:ok]' pivot='key' type='ordinal' />
+            <column datatype='datetime' name='[session_start_time]' role='dimension' type='ordinal' />
+            <column datatype='real' name='[tz_offset_days]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='0.041666666666666664' />
+            </column>
+          </datasource-dependencies>
+          <filter class='categorical' column='[postgres.41976.825453032400].[Action (MINUTE(completed_at_local))]'>
+            <groupfilter function='level-members' level='[tmi:Calculation_3471203204218240:ok]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='quantitative' column='[postgres.41976.825453032400].[avg:elapsed_time (copy):qk]' included-values='in-range'>
+            <min>0.0</min>
+            <max>60.0</max>
+          </filter>
+          <filter class='categorical' column='[postgres.41976.825453032400].[none:Calculation_2611203203455640:nk]'>
+            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:Calculation_2611203203455640:nk]' member='&quot;compute_view&quot;' />
+              <groupfilter function='member' level='[none:Calculation_2611203203455640:nk]' member='&quot;load_view&quot;' />
+            </groupfilter>
+          </filter>
+          <sort class='manual' column='[postgres.41976.825453032400].[none:Calculation_2611203203455640:nk]' direction='ASC'>
+            <dictionary>
+              <bucket>&quot;load_view&quot;</bucket>
+              <bucket>&quot;compute_view&quot;</bucket>
+              <bucket>%all%</bucket>
+            </dictionary>
+          </sort>
+          <sort class='computed' column='[postgres.41976.825453032400].[none:Calculation_5531203203614429:nk]' direction='DESC' using='[postgres.41976.825453032400].[max:elapsed_time (copy):qk]' />
+          <filter class='categorical' column='[postgres.41976.825453032400].[none:Calculation_8371203203531503:nk]'>
+            <groupfilter function='member' level='[none:Calculation_8371203203531503:nk]' member='false' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='relative-date' column='[postgres.41976.825453032400].[none:completed_at:qk]' filter-group='3' first-period='-59' include-future='true' include-null='false' last-period='0' period-type='year' />
+          <filter class='categorical' column='[postgres.41976.825453032400].[none:currentsheet:nk]' filter-group='18'>
+            <groupfilter function='level-members' level='[none:currentsheet:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <sort class='computed' column='[postgres.41976.825453032400].[none:currentsheet:nk]' direction='DESC' using='[postgres.41976.825453032400].[max:elapsed_time (copy):qk]' />
+          <filter class='categorical' column='[postgres.41976.825453032400].[none:name (_sites):nk]' filter-group='19'>
+            <groupfilter function='level-members' level='[none:name (_sites):nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <slices>
+            <column>[postgres.41976.825453032400].[none:Calculation_2611203203455640:nk]</column>
+            <column>[postgres.41976.825453032400].[none:Calculation_8371203203531503:nk]</column>
+            <column>[postgres.41976.825453032400].[none:currentsheet:nk]</column>
+            <column>[postgres.41976.825453032400].[none:name (_sites):nk]</column>
+            <column>[postgres.41976.825453032400].[avg:elapsed_time (copy):qk]</column>
+            <column>[postgres.41976.825453032400].[none:completed_at:qk]</column>
+            <column>[postgres.41976.825453032400].[Action (MINUTE(completed_at_local))]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <format attr='title' class='0' field='[postgres.41976.825453032400].[usr:Calculation2:qk:1]' scope='cols' value='Load Time (sec)' />
+            <format attr='subtitle' class='0' field='[postgres.41976.825453032400].[usr:Calculation2:qk:1]' scope='cols' value='' />
+            <format attr='auto-subtitle' class='0' field='[postgres.41976.825453032400].[usr:Calculation2:qk:1]' scope='cols' value='true' />
+          </style-rule>
+          <style-rule element='worksheet'>
+            <format attr='display-field-labels' scope='cols' value='false' />
+          </style-rule>
+          <style-rule element='refline'>
+            <format attr='background-color' id='refline5' value='#ffffffcb' />
+          </style-rule>
+          <style-rule element='table-div'>
+            <format attr='line-visibility' scope='rows' value='off' />
+          </style-rule>
+          <style-rule element='quick-filter'>
+            <format attr='title' field='[postgres.41976.825453032400].[none:currentsheet:nk]' value='View' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane id='9' selection-relaxation-option='selection-relaxation-disallow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Circle' />
+            <encodings>
+              <lod column='[postgres.41976.825453032400].[usr:Calculation2:qk:1]' />
+              <lod column='[postgres.41976.825453032400].[none:Calculation_2611203203455640:nk]' />
+              <lod column='[postgres.41976.825453032400].[none:Calculation_5531203203614429:nk]' />
+              <lod column='[postgres.41976.825453032400].[none:name (_sites):nk]' />
+              <lod column='[postgres.41976.825453032400].[none:http_request_uri:nk]' />
+              <lod column='[postgres.41976.825453032400].[none:vizql_session:nk]' />
+              <lod column='[postgres.41976.827028101800].[none:Calculation_9571203204005081:ok]' />
+              <lod column='[postgres.41976.825453032400].[usr:Calculation_0911203203805906:nk:1]' />
+              <lod column='[postgres.41976.825453032400].[none:Calculation_8251203203722951:ok]' />
+              <lod column='[postgres.41976.825453032400].[usr:Calculation_4411203203842330:qk]' />
+              <lod column='[postgres.41976.825453032400].[none:Calculation_7431203204157460:ok]' />
+              <lod column='[postgres.41976.825453032400].[none:Calculation_3391203205222835:nk]' />
+            </encodings>
+            <reference-line axis-column='[postgres.41976.825453032400].[usr:Calculation2:qk:1]' enable-instant-analytics='true' fill-above='false' fill-below='false' formula='quantiles' id='refline3' label-type='none' scope='per-cell' symmetric='true' tile-count='4' value-column='[postgres.41976.825453032400].[usr:Calculation2:qk:1]' z-order='1' />
+            <reference-line axis-column='[postgres.41976.825453032400].[usr:Calculation2:qk:1]' enable-instant-analytics='true' formula='median' id='refline4' label-type='none' probability='95' scope='per-cell' value-column='[postgres.41976.825453032400].[usr:Calculation2:qk:1]' z-order='2' />
+            <reference-line axis-column='[postgres.41976.825453032400].[usr:Calculation2:qk:1]' enable-instant-analytics='true' formula='average' id='refline5' label-type='value' probability='95' scope='per-cell' value-column='[postgres.41976.825453032400].[usr:Calculation2:qk:1]' z-order='3' />
+            <customized-tooltip>
+              <formatted-text>
+                <run fontsize='11'>Total Load Time:</run>
+                <run fontcolor='#787878' fontsize='11'>Æ&#9;</run>
+                <run bold='true' fontsize='11'>&lt;[postgres.41976.825453032400].[usr:Calculation2:qk:1]&gt; </run>
+                <run fontsize='11'>seconds&#10;started at </run>
+                <run bold='true' fontsize='11'>&lt;[postgres.41976.827028101800].[none:Calculation_9571203204005081:ok]&gt;</run>
+                <run bold='true' fontcolor='#6f95bf'>Æ&#10; </run>
+                <run fontcolor='#787878'>&#10;Session ID:  </run>
+                <run bold='true'>&lt;[postgres.41976.825453032400].[none:vizql_session:nk]&gt;</run>
+              </formatted-text>
+            </customized-tooltip>
+            <style>
+              <style-rule element='mark'>
+                <format attr='size' value='1.1974033117294312' />
+                <format attr='mark-labels-cull' value='false' />
+                <format attr='mark-labels-show' value='false' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>([postgres.41976.825453032400].[none:currentsheet:nk] / [postgres.41976.825453032400].[none:name (_sites):nk])</rows>
+        <cols>[postgres.41976.825453032400].[usr:Calculation2:qk:1]</cols>
+      </table>
+    </worksheet>
+  </worksheets>
+  <dashboards>
+    <dashboard name='Stats for Load Times'>
+      <repository-location id='StatsforLoadTimes' path='/t/project-griffon/workbooks/8_StatsforLoadTimes' revision='' site='project-griffon' />
+      <style />
+      <size minheight='625' minwidth='1020' />
+      <datasources>
+        <datasource caption='Monitor Requests And Users' name='postgres.41976.825453032400' />
+      </datasources>
+      <datasource-dependencies datasource='postgres.41976.825453032400'>
+        <column-instance column='[elapsed_time (copy)]' derivation='Avg' name='[avg:elapsed_time (copy):qk]' pivot='key' type='quantitative' />
+        <column caption='Completed At' datatype='datetime' name='[completed_at]' role='dimension' type='ordinal' />
+        <column caption='View Name' datatype='string' name='[currentsheet]' role='dimension' type='nominal' />
+        <column caption='elapsed_time_sec' datatype='real' default-format='n#,##0.0;-#,##0.0' name='[elapsed_time (copy)]' role='measure' type='quantitative'>
+          <calculation class='tableau' formula='[Calculation_7391203204726330]*86400' />
+        </column>
+        <column caption='Site' datatype='string' name='[name (_sites)]' role='dimension' type='nominal' />
+        <column-instance column='[completed_at]' derivation='None' name='[none:completed_at:qk]' pivot='key' type='quantitative' />
+        <column-instance column='[currentsheet]' derivation='None' name='[none:currentsheet:nk]' pivot='key' type='nominal' />
+        <column-instance column='[name (_sites)]' derivation='None' name='[none:name (_sites):nk]' pivot='key' type='nominal' />
+      </datasource-dependencies>
+      <zones use-insets='false'>
+        <zone h='100000' id='2' type='layout-basic' w='100000' x='0' y='0'>
+          <zone fixed-size='31' forceUpdate='true' h='6313' id='3' is-fixed='true' type='text' w='98482' x='759' y='848'>
+            <formatted-text>
+              <run bold='true' fontsize='16'>How Long Does it Take for Views to Load?</run>
+              <run bold='true' fontsize='10'>Æ </run>
+              <run bold='true' fontcolor='#898989' fontsize='10'>(Click to filter)</run>
+            </formatted-text>
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+              <format attr='margin-top' value='0' />
+              <format attr='margin-right' value='0' />
+              <format attr='margin-left' value='0' />
+            </zone-style>
+          </zone>
+          <zone h='27997' id='4' name='What Are The Average Load Times for Views?' w='98482' x='759' y='15316'>
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+              <format attr='margin-right' value='0' />
+              <format attr='margin-left' value='0' />
+            </zone-style>
+          </zone>
+          <zone h='55839' id='8' name='What is the Exact Load Time For Views?' w='98482' x='759' y='43313'>
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+              <format attr='margin-right' value='0' />
+              <format attr='margin-bottom' value='0' />
+              <format attr='margin-left' value='0' />
+            </zone-style>
+          </zone>
+          <zone h='8155' id='11' mode='dropdown' name='What is the Exact Load Time For Views?' param='[postgres.41976.825453032400].[none:currentsheet:nk]' type='filter' values='relevant' w='21737' x='759' y='7161'>
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+              <format attr='margin-left' value='0' />
+            </zone-style>
+          </zone>
+          <zone h='8155' id='13' name='What Are The Average Load Times for Views?' param='[postgres.41976.825453032400].[none:completed_at:qk]' show-domain='false' show-null-ctrls='false' type='filter' w='19295' x='22496' y='7161'>
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+            </zone-style>
+          </zone>
+          <zone h='8155' id='14' name='What Are The Average Load Times for Views?' param='[postgres.41976.825453032400].[avg:elapsed_time (copy):qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='41036' x='58205' y='7161'>
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+              <format attr='margin-right' value='0' />
+            </zone-style>
+          </zone>
+          <zone h='8155' id='12' mode='dropdown' name='What Are The Average Load Times for Views?' param='[postgres.41976.825453032400].[none:name (_sites):nk]' type='filter' values='relevant' w='16414' x='41791' y='7161'>
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+            </zone-style>
+          </zone>
+          <zone-style>
+            <format attr='border-color' value='#000000' />
+            <format attr='border-style' value='none' />
+            <format attr='border-width' value='0' />
+            <format attr='margin' value='4' />
+            <format attr='margin-top' value='8' />
+            <format attr='margin-right' value='8' />
+            <format attr='margin-bottom' value='8' />
+            <format attr='margin-left' value='8' />
+          </zone-style>
+        </zone>
+      </zones>
+    </dashboard>
+  </dashboards>
+  <windows source-height='51'>
+    <window class='dashboard' maximized='true' name='Stats for Load Times'>
+      <viewpoints>
+        <viewpoint name='What Are The Average Load Times for Views?'>
+          <zoom type='entire-view' />
+          <highlight field='[postgres.41976.825453032400].[none:Calculation_2611203203455640:nk]'>
+            <bucket-selection />
+          </highlight>
+        </viewpoint>
+        <viewpoint name='What is the Exact Load Time For Views?' />
+      </viewpoints>
+      <active id='4' />
+    </window>
+    <window class='worksheet' name='What Are The Average Load Times for Views?'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card param='[postgres.41976.825453032400].[none:completed_at:qk]' show-domain='false' show-null-ctrls='false' type='filter' />
+          </strip>
+        </edge>
+      </cards>
+      <viewpoint>
+        <highlight>
+          <color-one-way>
+            <field>[postgres.41976.825453032400].[none:Calculation_2611203203455640:nk]</field>
+            <field>[postgres.41976.825453032400].[none:Calculation_3471203204218240:qk]</field>
+            <field>[postgres.41976.825453032400].[none:Calculation_7431203204157460:qk]</field>
+            <field>[postgres.41976.825453032400].[none:Calculation_8371203203531503:nk]</field>
+            <field>[postgres.41976.825453032400].[none:completed_at:qk]</field>
+            <field>[postgres.41976.825453032400].[none:created_at:qk]</field>
+            <field>[postgres.41976.825453032400].[none:currentsheet:nk]</field>
+            <field>[postgres.41976.825453032400].[yr:Calculation_1671205215441463:ok]</field>
+            <field>[postgres.41976.825453032400].[yr:Calculation_3471203204218240:ok]</field>
+            <field>[postgres.41976.825453032400].[yr:Calculation_7431203204157460:ok]</field>
+          </color-one-way>
+        </highlight>
+      </viewpoint>
+    </window>
+    <window class='worksheet' name='What is the Exact Load Time For Views?'>
+      <cards>
+        <edge name='left'>
+          <strip size='300'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+        </edge>
+      </cards>
+      <viewpoint>
+        <highlight>
+          <color-one-way>
+            <field>[postgres.41976.825453032400].[none:Calculation_2611203203455640:nk]</field>
+            <field>[postgres.41976.825453032400].[none:Calculation_3391203205222835:nk]</field>
+            <field>[postgres.41976.825453032400].[none:Calculation_3471203204218240:qk]</field>
+            <field>[postgres.41976.825453032400].[none:Calculation_5531203203614429:nk]</field>
+            <field>[postgres.41976.825453032400].[none:Calculation_8251203203722951:ok]</field>
+            <field>[postgres.41976.825453032400].[none:Calculation_8371203203531503:nk]</field>
+            <field>[postgres.41976.825453032400].[none:completed_at:qk]</field>
+            <field>[postgres.41976.825453032400].[none:currentsheet:nk]</field>
+            <field>[postgres.41976.825453032400].[none:http_request_uri:nk]</field>
+            <field>[postgres.41976.825453032400].[none:name (_sites):nk]</field>
+            <field>[postgres.41976.825453032400].[none:vizql_session:nk]</field>
+            <field>[postgres.41976.825453032400].[usr:Calculation_0911203203805906:nk:1]</field>
+            <field>[postgres.41976.825453032400].[yr:Calculation_7431203204157460:ok]</field>
+            <field>[postgres.41976.827028101800].[yr:Calculation_9571203204005081:ok]</field>
+          </color-one-way>
+        </highlight>
+      </viewpoint>
+    </window>
+    <window class='worksheet' name='Sheet 1'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+    </window>
+  </windows>
+</workbook>
