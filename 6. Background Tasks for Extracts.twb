@@ -1,0 +1,2135 @@
+<?xml version='1.0' encoding='utf-8' ?>
+
+<!-- build 10500.18.0305.1200                               -->
+<workbook original-version='10.5' source-build='10.5.2 (10500.18.0305.1200)' source-platform='mac' version='10.5' xml:base='https://tableauserver.theinformationlab.co.uk' xmlns:user='http://www.tableausoftware.com/xml/user'>
+  <repository-location derived-from='https://tableauserver.theinformationlab.co.uk/t/project-griffon/workbooks/5_ActionsbyRecentUsers?rev=1.0' id='6_BackgroundTasksforExtracts' path='/t/project-griffon/workbooks' revision='1.0' site='project-griffon' />
+  <preferences>
+    <preference name='ui.encoding.shelf.height' value='24' />
+    <preference name='ui.shelf.height' value='26' />
+  </preferences>
+  <datasources>
+    <datasource hasconnection='false' inline='true' name='Parameters' version='10.5'>
+      <aliases enabled='yes' />
+      <column caption='Min Interactions' datatype='integer' name='[Parameter 3]' param-domain-type='any' role='measure' type='quantitative' value='1'>
+        <calculation class='tableau' formula='1' />
+      </column>
+    </datasource>
+    <datasource caption='Background Tasks' inline='true' name='historical_events+ (workgroup) (copy)' version='10.5'>
+      <repository-location id='BackgroundTasks' path='datasources' revision='1.0' />
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='localhost' name='historical_events+ (workgroup) (copy)leaf'>
+            <connection authentication='username-password' class='postgres' dbname='workgroup' odbc-native-protocol='yes' one-time-sql='' port='8060' server='til-analytics-on-analytics.celvcvjownp8.eu-west-1.rds.amazonaws.com' server-oauth='' username='tblwgadmin' workgroup-auth-mode='prompt' />
+          </named-connection>
+        </named-connections>
+        <relation join='left' type='join'>
+          <clause type='join'>
+            <expression op='='>
+              <expression op='[_background_tasks].[site_id]' />
+              <expression op='[_sites].[id]' />
+            </expression>
+          </clause>
+          <relation connection='historical_events+ (workgroup) (copy)leaf' name='_background_tasks' table='[public].[_background_tasks]' type='table' />
+          <relation connection='historical_events+ (workgroup) (copy)leaf' name='_sites' table='[public].[_sites]' type='table' />
+        </relation>
+        <cols>
+          <map key='[args]' value='[_background_tasks].[args]' />
+          <map key='[backgrounder_id]' value='[_background_tasks].[backgrounder_id]' />
+          <map key='[completed_at]' value='[_background_tasks].[completed_at]' />
+          <map key='[created_at]' value='[_background_tasks].[created_at]' />
+          <map key='[finish_code]' value='[_background_tasks].[finish_code]' />
+          <map key='[id (_sites)]' value='[_sites].[id]' />
+          <map key='[id]' value='[_background_tasks].[id]' />
+          <map key='[job_name]' value='[_background_tasks].[job_name]' />
+          <map key='[job_type]' value='[_background_tasks].[job_type]' />
+          <map key='[language]' value='[_background_tasks].[language]' />
+          <map key='[locale]' value='[_background_tasks].[locale]' />
+          <map key='[name]' value='[_sites].[name]' />
+          <map key='[notes]' value='[_background_tasks].[notes]' />
+          <map key='[priority]' value='[_background_tasks].[priority]' />
+          <map key='[processed_on_worker]' value='[_background_tasks].[processed_on_worker]' />
+          <map key='[progress]' value='[_background_tasks].[progress]' />
+          <map key='[site_id]' value='[_background_tasks].[site_id]' />
+          <map key='[started_at]' value='[_background_tasks].[started_at]' />
+          <map key='[status]' value='[_sites].[status]' />
+          <map key='[subtitle]' value='[_background_tasks].[subtitle]' />
+          <map key='[title]' value='[_background_tasks].[title]' />
+          <map key='[url_namespace]' value='[_sites].[url_namespace]' />
+        </cols>
+        <refresh increment-key='' incremental-updates='false' />
+        <metadata-records>
+          <metadata-record class='column'>
+            <remote-name>backgrounder_id</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[backgrounder_id]</local-name>
+            <parent-name>[_background_tasks]</parent-name>
+            <remote-alias>backgrounder_id</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>id</remote-name>
+            <remote-type>3</remote-type>
+            <local-name>[id]</local-name>
+            <parent-name>[_background_tasks]</parent-name>
+            <remote-alias>id</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>10</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_INTEGER&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_SLONG&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>created_at</remote-name>
+            <remote-type>7</remote-type>
+            <local-name>[created_at]</local-name>
+            <parent-name>[_background_tasks]</parent-name>
+            <remote-alias>created_at</remote-alias>
+            <ordinal>3</ordinal>
+            <local-type>datetime</local-type>
+            <aggregation>Year</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_TYPE_TIMESTAMP&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_TYPE_TIMESTAMP&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>completed_at</remote-name>
+            <remote-type>7</remote-type>
+            <local-name>[completed_at]</local-name>
+            <parent-name>[_background_tasks]</parent-name>
+            <remote-alias>completed_at</remote-alias>
+            <ordinal>4</ordinal>
+            <local-type>datetime</local-type>
+            <aggregation>Year</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_TYPE_TIMESTAMP&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_TYPE_TIMESTAMP&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>finish_code</remote-name>
+            <remote-type>3</remote-type>
+            <local-name>[finish_code]</local-name>
+            <parent-name>[_background_tasks]</parent-name>
+            <remote-alias>finish_code</remote-alias>
+            <ordinal>5</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>10</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_INTEGER&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_SLONG&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>job_type</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[job_type]</local-name>
+            <parent-name>[_background_tasks]</parent-name>
+            <remote-alias>job_type</remote-alias>
+            <ordinal>6</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>progress</remote-name>
+            <remote-type>3</remote-type>
+            <local-name>[progress]</local-name>
+            <parent-name>[_background_tasks]</parent-name>
+            <remote-alias>progress</remote-alias>
+            <ordinal>7</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>10</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_INTEGER&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_SLONG&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>args</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[args]</local-name>
+            <parent-name>[_background_tasks]</parent-name>
+            <remote-alias>args</remote-alias>
+            <ordinal>8</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>8190</width>
+            <contains-null>true</contains-null>
+            <cast-to-local-type>true</cast-to-local-type>
+            <collation flag='0' name='LEN_RUS' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WLONGVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>notes</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[notes]</local-name>
+            <parent-name>[_background_tasks]</parent-name>
+            <remote-alias>notes</remote-alias>
+            <ordinal>9</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>8190</width>
+            <contains-null>true</contains-null>
+            <cast-to-local-type>true</cast-to-local-type>
+            <collation flag='0' name='LEN_RUS' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WLONGVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>started_at</remote-name>
+            <remote-type>7</remote-type>
+            <local-name>[started_at]</local-name>
+            <parent-name>[_background_tasks]</parent-name>
+            <remote-alias>started_at</remote-alias>
+            <ordinal>10</ordinal>
+            <local-type>datetime</local-type>
+            <aggregation>Year</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_TYPE_TIMESTAMP&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_TYPE_TIMESTAMP&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>job_name</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[job_name]</local-name>
+            <parent-name>[_background_tasks]</parent-name>
+            <remote-alias>job_name</remote-alias>
+            <ordinal>11</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>priority</remote-name>
+            <remote-type>3</remote-type>
+            <local-name>[priority]</local-name>
+            <parent-name>[_background_tasks]</parent-name>
+            <remote-alias>priority</remote-alias>
+            <ordinal>12</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>10</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_INTEGER&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_SLONG&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>title</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[title]</local-name>
+            <parent-name>[_background_tasks]</parent-name>
+            <remote-alias>title</remote-alias>
+            <ordinal>13</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>processed_on_worker</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[processed_on_worker]</local-name>
+            <parent-name>[_background_tasks]</parent-name>
+            <remote-alias>processed_on_worker</remote-alias>
+            <ordinal>14</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>subtitle</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[subtitle]</local-name>
+            <parent-name>[_background_tasks]</parent-name>
+            <remote-alias>subtitle</remote-alias>
+            <ordinal>15</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>language</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[language]</local-name>
+            <parent-name>[_background_tasks]</parent-name>
+            <remote-alias>language</remote-alias>
+            <ordinal>16</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>site_id</remote-name>
+            <remote-type>3</remote-type>
+            <local-name>[site_id]</local-name>
+            <parent-name>[_background_tasks]</parent-name>
+            <remote-alias>site_id</remote-alias>
+            <ordinal>17</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>10</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_INTEGER&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_SLONG&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>locale</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[locale]</local-name>
+            <parent-name>[_background_tasks]</parent-name>
+            <remote-alias>locale</remote-alias>
+            <ordinal>18</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>id</remote-name>
+            <remote-type>3</remote-type>
+            <local-name>[id (_sites)]</local-name>
+            <parent-name>[_sites]</parent-name>
+            <remote-alias>id</remote-alias>
+            <ordinal>20</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>10</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_INTEGER&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_SLONG&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>name</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[name]</local-name>
+            <parent-name>[_sites]</parent-name>
+            <remote-alias>name</remote-alias>
+            <ordinal>21</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>url_namespace</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[url_namespace]</local-name>
+            <parent-name>[_sites]</parent-name>
+            <remote-alias>url_namespace</remote-alias>
+            <ordinal>22</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>status</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[status]</local-name>
+            <parent-name>[_sites]</parent-name>
+            <remote-alias>status</remote-alias>
+            <ordinal>23</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled='yes' />
+      <column caption='Day of the Week' datatype='string' name='[Calculation_1371064632691392512]' role='dimension' type='nominal'>
+        <calculation class='tableau' formula='DATENAME(&apos;weekday&apos;,[created_at])' />
+      </column>
+      <column caption='Short Notes' datatype='string' name='[Calculation_1371064632699375619]' role='dimension' type='nominal'>
+        <calculation class='tableau' formula='SPLIT([notes],&quot;(&quot;,1)' />
+      </column>
+      <column caption='created_at_local' datatype='datetime' default-format='*m/d/yyyy h:nn AMPM' name='[Calculation_1391203111401511]' role='dimension' type='ordinal'>
+        <calculation class='tableau' formula='[created_at]+[tz_offset_days]' scope-isolation='false' />
+      </column>
+      <column caption='Product_Key' datatype='string' name='[Calculation_1460573719432294400]' role='dimension' type='nominal'>
+        <calculation class='tableau' formula='if(TRIM([action_key])) != &apos;&apos; THEN&#13;&#10;[action_key]&#13;&#10;ELSE&#13;&#10;[product_keys]&#13;&#10;END' />
+      </column>
+      <column caption='completed_at_local_nonull' datatype='datetime' name='[Calculation_1491203151102885]' role='dimension' type='ordinal'>
+        <calculation class='tableau' formula='IF [Calculation_2751203151629099] = &quot;Pending&quot; OR [Calculation_2751203151629099] = &quot;In Process&quot; OR [Calculation_2751203151629099] = &quot;Waiting&quot; THEN NOW() &#13;&#10;ELSE [completed_at] END&#13;&#10;+tz_offset_days' scope-isolation='false' />
+      </column>
+      <column caption='Status of Job' datatype='string' name='[Calculation_2751203151629099]' role='dimension' type='nominal'>
+        <calculation class='tableau' formula='IF [progress] == -1 THEN&#10;  &quot;Pending&quot;&#10;ELSEIF [progress] &lt; 100 THEN&#10;  &quot;In Process&quot;&#10;ELSEIF [finish_code] == 0 THEN&#10;  &quot;Success&quot;&#10;ELSE&#10;  &quot;Error&quot;&#10;END' scope-isolation='false' />
+        <aliases>
+          <alias key='&quot;Error&quot;' value='Error' />
+          <alias key='&quot;In Process&quot;' value='In Process' />
+          <alias key='&quot;Pending&quot;' value='Pending' />
+          <alias key='&quot;Success&quot;' value='Success' />
+        </aliases>
+      </column>
+      <column caption='started_at_local' datatype='datetime' default-format='*m/d/yyyy h:nn AMPM' name='[Calculation_4091203151130500]' role='dimension' type='ordinal'>
+        <calculation class='tableau' formula='[started_at]+[tz_offset_days]' scope-isolation='false' />
+      </column>
+      <column caption='Title nonull' datatype='string' name='[Calculation_4841218102710894]' role='dimension' type='nominal'>
+        <calculation class='tableau' formula='IFnull([title],&apos;&apos;)' />
+      </column>
+      <column caption='waittime_minutes' datatype='integer' name='[Calculation_5103211714720309248]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='IF ISNULL([Calculation_4091203151130500]) THEN&#10;  DATEDIFF(&apos;minute&apos;, [Calculation_1391203111401511], [Calculation_5103211714729562115])&#10;ELSE&#10;  DATEDIFF(&apos;minute&apos;, [Calculation_1391203111401511],[Calculation_4091203151130500])&#10;END' />
+      </column>
+      <column caption='waittime_minutes_color' datatype='string' name='[Calculation_5103211714721906689]' role='dimension' type='nominal'>
+        <calculation class='tableau' formula='IF [Calculation_5103211714720309248] &lt; 5 THEN&#10;  &quot;Good&quot;&#10;ELSEIF ([Calculation_5103211714720309248] &lt; 15) THEN&#10; &quot;OK&quot;&#10;ELSE&#10;  &quot;BAD&quot;&#10;END' />
+      </column>
+      <column caption='Current Time' datatype='datetime' name='[Calculation_5103211714729562115]' role='dimension' type='ordinal'>
+        <calculation class='tableau' formula='NOW()+[tz_offset_days]' />
+      </column>
+      <column caption='runtime_sec_gant' datatype='real' name='[Calculation_7711203151750168]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='datediff(&apos;second&apos;,[Calculation_1391203111401511],[Calculation_1491203151102885])/(60 * 60 * 24)' scope-isolation='false' />
+      </column>
+      <column caption='extract_task' datatype='string' name='[Job Name (copy 2)]' role='dimension' type='nominal'>
+        <calculation class='tableau' formula='[job_name]' />
+      </column>
+      <column caption='nonextract_task' datatype='string' name='[Job Name (copy 3)]' role='dimension' type='nominal'>
+        <calculation class='tableau' formula='[job_name]' />
+      </column>
+      <column caption='Extract Job' datatype='string' name='[Job Name (copy)]' role='dimension' type='nominal'>
+        <calculation class='tableau' formula='[job_name]' scope-isolation='false' />
+      </column>
+      <column datatype='integer' name='[Number of Records]' role='measure' type='quantitative' user:auto-column='numrec'>
+        <calculation class='tableau' formula='1' />
+      </column>
+      <column caption='Extract' datatype='string' name='[Title (copy)]' role='dimension' type='nominal'>
+        <calculation class='tableau' formula='[title]' />
+      </column>
+      <column caption='Args' datatype='string' name='[args]' role='dimension' type='nominal' />
+      <column caption='Backgrounder Id' datatype='string' name='[backgrounder_id]' role='dimension' type='nominal' />
+      <column caption='Completed At' datatype='datetime' name='[completed_at]' role='dimension' type='ordinal' />
+      <column caption='completed_at_local' datatype='datetime' name='[completed_at_local (copy)]' role='dimension' type='ordinal'>
+        <calculation class='tableau' formula='[completed_at]+[tz_offset_days]' scope-isolation='false' />
+      </column>
+      <column caption='Created At' datatype='datetime' datatype-customized='true' name='[created_at]' role='dimension' type='ordinal' />
+      <column caption='Finish Code' datatype='integer' name='[finish_code]' role='dimension' type='ordinal' />
+      <column caption='Id ( Sites)' datatype='integer' name='[id (_sites)]' role='dimension' type='ordinal' />
+      <column caption='Id' datatype='integer' name='[id]' role='dimension' type='ordinal' />
+      <column caption='Job Name' datatype='string' name='[job_name]' role='dimension' type='nominal'>
+        <aliases>
+          <alias key='&quot;Dataengine Configuration Reaper&quot;' value='Data Engine Configuration Reaper' />
+          <alias key='&quot;List Extracts for TDFS Propagation&quot;' value='List Extracts for File Store Propagation' />
+          <alias key='&quot;List Extracts for TDFS Reaping&quot;' value='List Extracts for File Store Reaping' />
+        </aliases>
+      </column>
+      <column caption='Job Type' datatype='string' name='[job_type]' role='dimension' type='nominal' />
+      <column caption='Language' datatype='string' name='[language]' role='dimension' type='nominal' />
+      <column caption='Locale' datatype='string' name='[locale]' role='dimension' type='nominal' />
+      <column caption='Site' datatype='string' name='[name]' role='dimension' type='nominal' />
+      <column caption='Notes' datatype='string' name='[notes]' role='dimension' type='nominal' />
+      <column aggregation='Sum' caption='Priority' datatype='integer' name='[priority]' role='dimension' type='ordinal' />
+      <column caption='Processed On Worker' datatype='string' name='[processed_on_worker]' role='dimension' type='nominal' />
+      <column caption='Progress' datatype='integer' name='[progress]' role='measure' type='quantitative' />
+      <column caption='runtime_sec (copy)' datatype='integer' default-format='n#,##0.0;-#,##0.0' name='[runtime_sec (copy)]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='IF ISNULL([started_at]) THEN&#10;  DATEDIFF(&apos;second&apos;, [created_at], NOW())&#10;ELSEIF ISNULL([completed_at]) THEN&#10;  DATEDIFF(&apos;second&apos;, [started_at], NOW())&#10;ELSE&#10;  DATEDIFF(&apos;second&apos;, [started_at], [completed_at])&#10;END' scope-isolation='false' />
+      </column>
+      <column caption='runtime_sec' datatype='integer' default-format='n#,##0;-#,##0' name='[runtime_sec_gant (copy)]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='IF ISNULL([started_at]) THEN&#10;  DATEDIFF(&apos;second&apos;, [created_at], NOW())&#10;ELSEIF ISNULL([completed_at]) THEN&#10;  DATEDIFF(&apos;second&apos;, [started_at], NOW())&#10;ELSE&#10;  DATEDIFF(&apos;second&apos;, [started_at], [completed_at])&#10;END' scope-isolation='false' />
+      </column>
+      <column caption='Site Id' datatype='integer' name='[site_id]' role='dimension' type='ordinal' />
+      <column caption='Started At' datatype='datetime' name='[started_at]' role='dimension' type='ordinal' />
+      <column caption='Status' datatype='string' name='[status]' role='dimension' type='nominal' />
+      <column caption='Subtitle' datatype='string' name='[subtitle]' role='dimension' type='nominal' />
+      <column caption='Title' datatype='string' name='[title]' role='dimension' type='nominal' />
+      <column datatype='real' name='[tz_offset_days]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='0.041666666666666664' />
+      </column>
+      <column caption='Url Namespace' datatype='string' name='[url_namespace]' role='dimension' type='nominal' />
+      <column-instance column='[Calculation_1391203111401511]' derivation='Hour' name='[hr:Calculation_1391203111401511:ok]' pivot='key' type='ordinal' />
+      <column-instance column='[Calculation_2751203151629099]' derivation='None' name='[none:Calculation_2751203151629099:nk]' pivot='key' type='nominal' />
+      <column-instance column='[Calculation_5103211714721906689]' derivation='None' name='[none:Calculation_5103211714721906689:nk]' pivot='key' type='nominal' />
+      <column-instance column='[job_name]' derivation='None' name='[none:job_name:nk]' pivot='key' type='nominal' />
+      <column-instance column='[Calculation_1391203111401511]' derivation='Day-Trunc' name='[tdy:Calculation_1391203111401511:ok]' pivot='key' type='ordinal' />
+      <group caption='Action (DAY(created_at_local))' hidden='true' name='[Action (DAY(created_at_local))]' name-style='unqualified' user:auto-column='sheet_link'>
+        <groupfilter function='crossjoin'>
+          <groupfilter function='level-members' level='[tdy:Calculation_1391203111401511:ok]' />
+        </groupfilter>
+      </group>
+      <group caption='Action (Extract)' hidden='true' name='[Action (Extract)]' name-style='unqualified' user:auto-column='sheet_link'>
+        <groupfilter function='crossjoin'>
+          <groupfilter function='level-members' level='[Title (copy)]' />
+        </groupfilter>
+      </group>
+      <group caption='Action (HOUR(created_at_local))' hidden='true' name='[Action (HOUR(created_at_local))]' name-style='unqualified' user:auto-column='sheet_link'>
+        <groupfilter function='crossjoin'>
+          <groupfilter function='level-members' level='[hr:Calculation_1391203111401511:ok]' />
+        </groupfilter>
+      </group>
+      <group caption='Action (Id (Hist Views))' hidden='true' name='[Action (Id (Hist Views))]' name-style='unqualified' user:auto-column='sheet_link'>
+        <groupfilter function='crossjoin'>
+          <groupfilter function='level-members' level='[id (hist_views)]' />
+        </groupfilter>
+      </group>
+      <group caption='Action (Job Name)' hidden='true' name='[Action (Job Name)]' name-style='unqualified' user:auto-column='sheet_link'>
+        <groupfilter function='crossjoin'>
+          <groupfilter function='level-members' level='[job_name]' />
+        </groupfilter>
+      </group>
+      <group caption='Action (Name (Hist Datasources))' hidden='true' name='[Action (Name (Hist Datasources))]' name-style='unqualified' user:auto-column='sheet_link'>
+        <groupfilter function='crossjoin'>
+          <groupfilter function='level-members' level='[name (hist_datasources)]' />
+        </groupfilter>
+      </group>
+      <group caption='Action (Name (Hist Users))' hidden='true' name='[Action (Name (Hist Users))]' name-style='unqualified' user:auto-column='sheet_link'>
+        <groupfilter function='crossjoin'>
+          <groupfilter function='level-members' level='[name (hist_users)]' />
+        </groupfilter>
+      </group>
+      <group caption='Action (Status of Job)' hidden='true' name='[Action (Status of Job)]' name-style='unqualified' user:auto-column='sheet_link'>
+        <groupfilter function='crossjoin'>
+          <groupfilter function='level-members' level='[Calculation_2751203151629099]' />
+        </groupfilter>
+      </group>
+      <drill-paths>
+        <drill-path name='Get Extract Name'>
+          <field>[Job Name (copy)]</field>
+          <field>[Title (copy)]</field>
+        </drill-path>
+      </drill-paths>
+      <layout dim-ordering='alphabetic' dim-percentage='0.55597' measure-ordering='alphabetic' measure-percentage='0.227612' parameter-percentage='0.216418' show-aliased-fields='true' show-structure='true' user-set-layout='true' />
+      <style>
+        <style-rule element='mark'>
+          <encoding attr='color' field='[none:job_name:nk]' type='palette'>
+            <map to='#1f77b4'>
+              <bucket>&quot;Delete sites&quot;</bucket>
+            </map>
+            <map to='#1f77b4'>
+              <bucket>&quot;Edit connections&quot;</bucket>
+            </map>
+            <map to='#2ca02c'>
+              <bucket>&quot;Sync Active Directory Group&quot;</bucket>
+            </map>
+            <map to='#2ca02c'>
+              <bucket>&quot;Upload CSV of Users&quot;</bucket>
+            </map>
+            <map to='#8c564b'>
+              <bucket>&quot;Assign permissions to contents&quot;</bucket>
+            </map>
+            <map to='#9467bd'>
+              <bucket>&quot;Set Permissions&quot;</bucket>
+            </map>
+            <map to='#aec7e8'>
+              <bucket>&quot;Import users from csv&quot;</bucket>
+            </map>
+            <map to='#d62728'>
+              <bucket>&quot;Import Active Directory Group&quot;</bucket>
+            </map>
+            <map to='#e377c2'>
+              <bucket>&quot;Import system users from csv&quot;</bucket>
+            </map>
+            <map to='#ff7f0e'>
+              <bucket>&quot;Rebuild Search Service Indices&quot;</bucket>
+            </map>
+            <map to='#ffbb78'>
+              <bucket>&quot;Subscription Notifications&quot;</bucket>
+            </map>
+          </encoding>
+          <encoding attr='color' field='[none:Calculation_5103211714721906689:nk]' type='palette'>
+            <map to='#59a14f'>
+              <bucket>&quot;Good&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;BAD&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;OK&quot;</bucket>
+            </map>
+          </encoding>
+          <encoding attr='shape' field='[none:Calculation_2751203151629099:nk]' type='shape'>
+            <map to=':filled/circle'>
+              <bucket>&quot;Success&quot;</bucket>
+            </map>
+            <map to=':filled/diamond'>
+              <bucket>&quot;Pending&quot;</bucket>
+            </map>
+            <map to=':filled/right-triangle'>
+              <bucket>&quot;In Process&quot;</bucket>
+            </map>
+            <map to=':filled/square'>
+              <bucket>&quot;Waiting&quot;</bucket>
+            </map>
+            <map to=':filled/times'>
+              <bucket>&quot;Error&quot;</bucket>
+            </map>
+          </encoding>
+          <encoding attr='color' field='[none:Calculation_2751203151629099:nk]' type='palette'>
+            <map to='#67bf5c'>
+              <bucket>&quot;In Process&quot;</bucket>
+            </map>
+            <map to='#729ece'>
+              <bucket>&quot;Success&quot;</bucket>
+            </map>
+            <map to='#a2a2a2'>
+              <bucket>&quot;Pending&quot;</bucket>
+            </map>
+            <map to='#a2a2a2'>
+              <bucket>&quot;Waiting&quot;</bucket>
+            </map>
+            <map to='#ed665d'>
+              <bucket>&quot;Error&quot;</bucket>
+            </map>
+          </encoding>
+        </style-rule>
+      </style>
+      <semantic-values>
+        <semantic-value key='[Country].[Name]' value='&quot;United States&quot;' />
+      </semantic-values>
+    </datasource>
+  </datasources>
+  <actions>
+    <action caption='Select Extract' name='[Action1]'>
+      <activation auto-clear='true' type='on-select' />
+      <source dashboard='Background Tasks for Extracts' type='sheet' worksheet='What Extracts Have Run in the past 24 hours?' />
+      <link caption='Select Extract' delimiter=',' escape='\' expression='tsl:Background%20Tasks%20for%20Extracts?%5Bhistorical_events%2B%20%28workgroup%29%20%28copy%29%5D.%5BTitle%20%28copy%29%5D~s0=&lt;[Title (copy)]~na&gt;' include-null='true' multi-select='true' url-escape='true' />
+      <command command='tsc:tsl-filter'>
+        <param name='exclude' value='What Extracts Have Run in the past 24 hours?' />
+        <param name='target' value='Background Tasks for Extracts' />
+      </command>
+    </action>
+    <action caption='Select Status' name='[Action2]'>
+      <activation auto-clear='true' type='on-select' />
+      <source dashboard='Background Tasks for Extracts' type='sheet'>
+        <exclude-sheet name='How many Extracts Have run and how many failed?' />
+        <exclude-sheet name='How many sucess vs fails have i had each day' />
+        <exclude-sheet name='What Extracts Have Run in the past 24 hours?' />
+      </source>
+      <link caption='Select Status' delimiter=',' escape='\' expression='tsl:Background%20Tasks%20for%20Extracts?%5Bhistorical_events%2B%20%28workgroup%29%20%28copy%29%5D.%5BCalculation_2751203151629099%5D~s0=&lt;[Calculation_2751203151629099]~na&gt;' include-null='true' multi-select='true' url-escape='true' />
+      <command command='tsc:tsl-filter'>
+        <param name='exclude' value='Extract Legend' />
+        <param name='target' value='Background Tasks for Extracts' />
+      </command>
+    </action>
+    <datasources>
+      <datasource caption='Background Tasks' name='historical_events+ (workgroup) (copy)' />
+    </datasources>
+    <datasource-dependencies datasource='historical_events+ (workgroup) (copy)'>
+      <column caption='Status of Job' datatype='string' name='[Calculation_2751203151629099]' role='dimension' type='nominal'>
+        <calculation class='tableau' formula='IF [progress] == -1 THEN&#10;  &quot;Pending&quot;&#10;ELSEIF [progress] &lt; 100 THEN&#10;  &quot;In Process&quot;&#10;ELSEIF [finish_code] == 0 THEN&#10;  &quot;Success&quot;&#10;ELSE&#10;  &quot;Error&quot;&#10;END' scope-isolation='false' />
+        <aliases>
+          <alias key='&quot;Error&quot;' value='Error' />
+          <alias key='&quot;In Process&quot;' value='In Process' />
+          <alias key='&quot;Pending&quot;' value='Pending' />
+          <alias key='&quot;Success&quot;' value='Success' />
+        </aliases>
+      </column>
+      <column caption='Extract' datatype='string' name='[Title (copy)]' role='dimension' type='nominal'>
+        <calculation class='tableau' formula='[title]' />
+      </column>
+    </datasource-dependencies>
+  </actions>
+  <worksheets>
+    <worksheet name='Extract 7 legend'>
+      <repository-location id='Extract7legend' path='/t/project-griffon/workbooks/6_BackgroundTasksforExtracts' revision='' site='project-griffon' />
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run>What Extracts Have Run In The Past </run>
+            <run fontcolor='#9e4c00'>24 Hours</run>
+            <run>?</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='Background Tasks' name='historical_events+ (workgroup) (copy)' />
+          </datasources>
+          <datasource-dependencies datasource='historical_events+ (workgroup) (copy)'>
+            <column caption='Status of Job' datatype='string' name='[Calculation_2751203151629099]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='IF [progress] == -1 THEN&#10;  &quot;Pending&quot;&#10;ELSEIF [progress] &lt; 100 THEN&#10;  &quot;In Process&quot;&#10;ELSEIF [finish_code] == 0 THEN&#10;  &quot;Success&quot;&#10;ELSE&#10;  &quot;Error&quot;&#10;END' scope-isolation='false' />
+              <aliases>
+                <alias key='&quot;Error&quot;' value='Error' />
+                <alias key='&quot;In Process&quot;' value='In Process' />
+                <alias key='&quot;Pending&quot;' value='Pending' />
+                <alias key='&quot;Success&quot;' value='Success' />
+              </aliases>
+            </column>
+            <column caption='extract_task' datatype='string' name='[Job Name (copy 2)]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='[job_name]' />
+            </column>
+            <column datatype='integer' name='[Number of Records]' role='measure' type='quantitative' user:auto-column='numrec'>
+              <calculation class='tableau' formula='1' />
+            </column>
+            <column caption='Extract' datatype='string' name='[Title (copy)]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='[title]' />
+            </column>
+            <column caption='Backgrounder Id' datatype='string' name='[backgrounder_id]' role='dimension' type='nominal' />
+            <column caption='Completed At' datatype='datetime' name='[completed_at]' role='dimension' type='ordinal' />
+            <column caption='Created At' datatype='datetime' datatype-customized='true' name='[created_at]' role='dimension' type='ordinal' />
+            <column caption='Finish Code' datatype='integer' name='[finish_code]' role='dimension' type='ordinal' />
+            <column caption='Job Name' datatype='string' name='[job_name]' role='dimension' type='nominal'>
+              <aliases>
+                <alias key='&quot;Dataengine Configuration Reaper&quot;' value='Data Engine Configuration Reaper' />
+                <alias key='&quot;List Extracts for TDFS Propagation&quot;' value='List Extracts for File Store Propagation' />
+                <alias key='&quot;List Extracts for TDFS Reaping&quot;' value='List Extracts for File Store Reaping' />
+              </aliases>
+            </column>
+            <column caption='Site' datatype='string' name='[name]' role='dimension' type='nominal' />
+            <column-instance column='[Calculation_2751203151629099]' derivation='None' name='[none:Calculation_2751203151629099:nk]' pivot='key' type='nominal' />
+            <column-instance column='[Job Name (copy 2)]' derivation='None' name='[none:Job Name (copy 2):nk]' pivot='key' type='nominal' />
+            <column-instance column='[Title (copy)]' derivation='None' name='[none:Title (copy):nk]' pivot='key' type='nominal' />
+            <column-instance column='[backgrounder_id]' derivation='None' name='[none:backgrounder_id:nk]' pivot='key' type='nominal' />
+            <column-instance column='[created_at]' derivation='None' name='[none:created_at:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[job_name]' derivation='None' name='[none:job_name:nk]' pivot='key' type='nominal' />
+            <column-instance column='[name]' derivation='None' name='[none:name:nk]' pivot='key' type='nominal' />
+            <column-instance column='[runtime_sec_gant (copy)]' derivation='None' name='[none:runtime_sec_gant (copy):qk]' pivot='key' type='quantitative' />
+            <column caption='Progress' datatype='integer' name='[progress]' role='measure' type='quantitative' />
+            <column caption='runtime_sec' datatype='integer' default-format='n#,##0;-#,##0' name='[runtime_sec_gant (copy)]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='IF ISNULL([started_at]) THEN&#10;  DATEDIFF(&apos;second&apos;, [created_at], NOW())&#10;ELSEIF ISNULL([completed_at]) THEN&#10;  DATEDIFF(&apos;second&apos;, [started_at], NOW())&#10;ELSE&#10;  DATEDIFF(&apos;second&apos;, [started_at], [completed_at])&#10;END' scope-isolation='false' />
+            </column>
+            <column caption='Started At' datatype='datetime' name='[started_at]' role='dimension' type='ordinal' />
+            <column-instance column='[Number of Records]' derivation='Sum' name='[sum:Number of Records:ok]' pivot='key' type='ordinal' />
+            <column caption='Title' datatype='string' name='[title]' role='dimension' type='nominal' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[historical_events+ (workgroup) (copy)].[Action (Extract)]'>
+            <groupfilter function='level-members' level='[Title (copy)]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[historical_events+ (workgroup) (copy)].[Action (Status of Job)]'>
+            <groupfilter function='level-members' level='[Calculation_2751203151629099]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <sort class='manual' column='[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]' direction='ASC'>
+            <dictionary>
+              <bucket>&quot;Success&quot;</bucket>
+              <bucket>&quot;Error&quot;</bucket>
+              <bucket>%all%</bucket>
+            </dictionary>
+          </sort>
+          <filter class='categorical' column='[historical_events+ (workgroup) (copy)].[none:Job Name (copy 2):nk]' filter-group='46'>
+            <groupfilter function='level-members' level='[none:Job Name (copy 2):nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[historical_events+ (workgroup) (copy)].[none:Title (copy):nk]' filter-group='14'>
+            <groupfilter function='level-members' level='[none:Title (copy):nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[historical_events+ (workgroup) (copy)].[none:backgrounder_id:nk]' filter-group='45'>
+            <groupfilter function='level-members' level='[none:backgrounder_id:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='relative-date' column='[historical_events+ (workgroup) (copy)].[none:created_at:qk]' filter-group='40' first-period='-6' include-future='true' include-null='false' last-period='0' period-type='year' />
+          <filter class='categorical' column='[historical_events+ (workgroup) (copy)].[none:job_name:nk]' filter-group='15'>
+            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:job_name:nk]' member='&quot;Increment Extracts&quot;' />
+              <groupfilter function='member' level='[none:job_name:nk]' member='&quot;Refresh Extracts&quot;' />
+              <groupfilter function='member' level='[none:job_name:nk]' member='&quot;Tde Increment Extracts&quot;' />
+              <groupfilter function='member' level='[none:job_name:nk]' member='&quot;Tde Refresh Extracts&quot;' />
+            </groupfilter>
+          </filter>
+          <filter class='categorical' column='[historical_events+ (workgroup) (copy)].[none:name:nk]' filter-group='33'>
+            <groupfilter function='level-members' level='[none:name:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='quantitative' column='[historical_events+ (workgroup) (copy)].[none:runtime_sec_gant (copy):qk]' filter-group='31' included-values='in-range'>
+            <min>0</min>
+            <max>9001</max>
+          </filter>
+          <slices>
+            <column>[historical_events+ (workgroup) (copy)].[none:created_at:qk]</column>
+            <column>[historical_events+ (workgroup) (copy)].[Action (Status of Job)]</column>
+            <column>[historical_events+ (workgroup) (copy)].[Action (Extract)]</column>
+            <column>[historical_events+ (workgroup) (copy)].[none:runtime_sec_gant (copy):qk]</column>
+            <column>[historical_events+ (workgroup) (copy)].[none:name:nk]</column>
+            <column>[historical_events+ (workgroup) (copy)].[none:Title (copy):nk]</column>
+            <column>[historical_events+ (workgroup) (copy)].[none:job_name:nk]</column>
+            <column>[historical_events+ (workgroup) (copy)].[none:Job Name (copy 2):nk]</column>
+            <column>[historical_events+ (workgroup) (copy)].[none:backgrounder_id:nk]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='label'>
+            <format attr='display' field='[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]' value='false' />
+          </style-rule>
+          <style-rule element='worksheet'>
+            <format attr='display-field-labels' scope='rows' value='false' />
+          </style-rule>
+          <style-rule element='table-div'>
+            <format attr='line-visibility' scope='rows' value='off' />
+            <format attr='line-visibility' scope='cols' value='off' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-disallow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]' />
+              <text column='[historical_events+ (workgroup) (copy)].[sum:Number of Records:ok]' />
+              <text column='[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]' />
+            </encodings>
+            <customized-label>
+              <formatted-text>
+                <run fontsize='10'>&lt;[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]&gt;</run>
+                <run bold='true' fontsize='14'>&#10;&lt;[historical_events+ (workgroup) (copy)].[sum:Number of Records:ok]&gt;</run>
+              </formatted-text>
+            </customized-label>
+            <style>
+              <style-rule element='cell'>
+                <format attr='text-align' value='center' />
+                <format attr='vertical-align' value='center' />
+              </style-rule>
+              <style-rule element='mark'>
+                <format attr='mark-labels-cull' value='true' />
+                <format attr='mark-labels-show' value='true' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows />
+        <cols>[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]</cols>
+        <tooltip-style tooltip-mode='none' />
+      </table>
+    </worksheet>
+    <worksheet name='Extract Legend'>
+      <repository-location id='ExtractLegend' path='/t/project-griffon/workbooks/6_BackgroundTasksforExtracts' revision='' site='project-griffon' />
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run>What Extracts Have Run In The Past </run>
+            <run fontcolor='#9e4c00'>24 Hours</run>
+            <run>?</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='Background Tasks' name='historical_events+ (workgroup) (copy)' />
+          </datasources>
+          <datasource-dependencies datasource='historical_events+ (workgroup) (copy)'>
+            <column caption='Status of Job' datatype='string' name='[Calculation_2751203151629099]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='IF [progress] == -1 THEN&#10;  &quot;Pending&quot;&#10;ELSEIF [progress] &lt; 100 THEN&#10;  &quot;In Process&quot;&#10;ELSEIF [finish_code] == 0 THEN&#10;  &quot;Success&quot;&#10;ELSE&#10;  &quot;Error&quot;&#10;END' scope-isolation='false' />
+              <aliases>
+                <alias key='&quot;Error&quot;' value='Error' />
+                <alias key='&quot;In Process&quot;' value='In Process' />
+                <alias key='&quot;Pending&quot;' value='Pending' />
+                <alias key='&quot;Success&quot;' value='Success' />
+              </aliases>
+            </column>
+            <column caption='extract_task' datatype='string' name='[Job Name (copy 2)]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='[job_name]' />
+            </column>
+            <column datatype='integer' name='[Number of Records]' role='measure' type='quantitative' user:auto-column='numrec'>
+              <calculation class='tableau' formula='1' />
+            </column>
+            <column caption='Extract' datatype='string' name='[Title (copy)]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='[title]' />
+            </column>
+            <column caption='Backgrounder Id' datatype='string' name='[backgrounder_id]' role='dimension' type='nominal' />
+            <column caption='Completed At' datatype='datetime' name='[completed_at]' role='dimension' type='ordinal' />
+            <column caption='Created At' datatype='datetime' datatype-customized='true' name='[created_at]' role='dimension' type='ordinal' />
+            <column caption='Finish Code' datatype='integer' name='[finish_code]' role='dimension' type='ordinal' />
+            <column caption='Job Name' datatype='string' name='[job_name]' role='dimension' type='nominal'>
+              <aliases>
+                <alias key='&quot;Dataengine Configuration Reaper&quot;' value='Data Engine Configuration Reaper' />
+                <alias key='&quot;List Extracts for TDFS Propagation&quot;' value='List Extracts for File Store Propagation' />
+                <alias key='&quot;List Extracts for TDFS Reaping&quot;' value='List Extracts for File Store Reaping' />
+              </aliases>
+            </column>
+            <column caption='Site' datatype='string' name='[name]' role='dimension' type='nominal' />
+            <column-instance column='[Calculation_2751203151629099]' derivation='None' name='[none:Calculation_2751203151629099:nk]' pivot='key' type='nominal' />
+            <column-instance column='[Job Name (copy 2)]' derivation='None' name='[none:Job Name (copy 2):nk]' pivot='key' type='nominal' />
+            <column-instance column='[Title (copy)]' derivation='None' name='[none:Title (copy):nk]' pivot='key' type='nominal' />
+            <column-instance column='[backgrounder_id]' derivation='None' name='[none:backgrounder_id:nk]' pivot='key' type='nominal' />
+            <column-instance column='[created_at]' derivation='None' name='[none:created_at:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[job_name]' derivation='None' name='[none:job_name:nk]' pivot='key' type='nominal' />
+            <column-instance column='[name]' derivation='None' name='[none:name:nk]' pivot='key' type='nominal' />
+            <column-instance column='[runtime_sec_gant (copy)]' derivation='None' name='[none:runtime_sec_gant (copy):qk]' pivot='key' type='quantitative' />
+            <column caption='Progress' datatype='integer' name='[progress]' role='measure' type='quantitative' />
+            <column caption='runtime_sec' datatype='integer' default-format='n#,##0;-#,##0' name='[runtime_sec_gant (copy)]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='IF ISNULL([started_at]) THEN&#10;  DATEDIFF(&apos;second&apos;, [created_at], NOW())&#10;ELSEIF ISNULL([completed_at]) THEN&#10;  DATEDIFF(&apos;second&apos;, [started_at], NOW())&#10;ELSE&#10;  DATEDIFF(&apos;second&apos;, [started_at], [completed_at])&#10;END' scope-isolation='false' />
+            </column>
+            <column caption='Started At' datatype='datetime' name='[started_at]' role='dimension' type='ordinal' />
+            <column-instance column='[Number of Records]' derivation='Sum' name='[sum:Number of Records:ok]' pivot='key' type='ordinal' />
+            <column caption='Title' datatype='string' name='[title]' role='dimension' type='nominal' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[historical_events+ (workgroup) (copy)].[Action (Extract)]'>
+            <groupfilter function='level-members' level='[Title (copy)]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <sort class='manual' column='[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]' direction='ASC'>
+            <dictionary>
+              <bucket>&quot;Success&quot;</bucket>
+              <bucket>&quot;Error&quot;</bucket>
+              <bucket>%all%</bucket>
+            </dictionary>
+          </sort>
+          <filter class='categorical' column='[historical_events+ (workgroup) (copy)].[none:Job Name (copy 2):nk]' filter-group='46'>
+            <groupfilter function='level-members' level='[none:Job Name (copy 2):nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[historical_events+ (workgroup) (copy)].[none:Title (copy):nk]' filter-group='14'>
+            <groupfilter function='level-members' level='[none:Title (copy):nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[historical_events+ (workgroup) (copy)].[none:backgrounder_id:nk]' filter-group='45'>
+            <groupfilter function='level-members' level='[none:backgrounder_id:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='relative-date' column='[historical_events+ (workgroup) (copy)].[none:created_at:qk]' filter-group='39' first-period='-23' include-future='true' include-null='false' last-period='0' period-type='year' />
+          <filter class='categorical' column='[historical_events+ (workgroup) (copy)].[none:job_name:nk]' filter-group='15'>
+            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:job_name:nk]' member='&quot;Increment Extracts&quot;' />
+              <groupfilter function='member' level='[none:job_name:nk]' member='&quot;Refresh Extracts&quot;' />
+              <groupfilter function='member' level='[none:job_name:nk]' member='&quot;Tde Increment Extracts&quot;' />
+              <groupfilter function='member' level='[none:job_name:nk]' member='&quot;Tde Refresh Extracts&quot;' />
+            </groupfilter>
+          </filter>
+          <filter class='categorical' column='[historical_events+ (workgroup) (copy)].[none:name:nk]' filter-group='33'>
+            <groupfilter function='level-members' level='[none:name:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='quantitative' column='[historical_events+ (workgroup) (copy)].[none:runtime_sec_gant (copy):qk]' filter-group='31' included-values='in-range'>
+            <min>0</min>
+            <max>9001</max>
+          </filter>
+          <slices>
+            <column>[historical_events+ (workgroup) (copy)].[none:created_at:qk]</column>
+            <column>[historical_events+ (workgroup) (copy)].[Action (Extract)]</column>
+            <column>[historical_events+ (workgroup) (copy)].[none:runtime_sec_gant (copy):qk]</column>
+            <column>[historical_events+ (workgroup) (copy)].[none:name:nk]</column>
+            <column>[historical_events+ (workgroup) (copy)].[none:Title (copy):nk]</column>
+            <column>[historical_events+ (workgroup) (copy)].[none:job_name:nk]</column>
+            <column>[historical_events+ (workgroup) (copy)].[none:Job Name (copy 2):nk]</column>
+            <column>[historical_events+ (workgroup) (copy)].[none:backgrounder_id:nk]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='cell'>
+            <format attr='width' value='40' />
+            <format attr='width' field='[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]' value='93' />
+          </style-rule>
+          <style-rule element='header'>
+            <format attr='width' field='[historical_events+ (workgroup) (copy)].[sum:Number of Records:ok]' value='24' />
+            <format attr='width' field='[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]' value='56' />
+          </style-rule>
+          <style-rule element='label'>
+            <format attr='display' field='[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]' value='false' />
+          </style-rule>
+          <style-rule element='worksheet'>
+            <format attr='display-field-labels' scope='rows' value='false' />
+          </style-rule>
+          <style-rule element='table-div'>
+            <format attr='line-visibility' scope='rows' value='off' />
+            <format attr='line-visibility' scope='cols' value='off' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-disallow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]' />
+              <text column='[historical_events+ (workgroup) (copy)].[sum:Number of Records:ok]' />
+              <text column='[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]' />
+            </encodings>
+            <customized-label>
+              <formatted-text>
+                <run fontsize='10'>&lt;[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]&gt;</run>
+                <run bold='true' fontsize='14'>&#10;&lt;[historical_events+ (workgroup) (copy)].[sum:Number of Records:ok]&gt;</run>
+              </formatted-text>
+            </customized-label>
+            <style>
+              <style-rule element='cell'>
+                <format attr='text-align' value='center' />
+                <format attr='vertical-align' value='center' />
+              </style-rule>
+              <style-rule element='mark'>
+                <format attr='mark-labels-cull' value='true' />
+                <format attr='mark-labels-show' value='true' />
+              </style-rule>
+              <style-rule element='pane'>
+                <format attr='minwidth' value='-1' />
+                <format attr='maxwidth' value='-1' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows />
+        <cols>[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]</cols>
+        <tooltip-style tooltip-mode='none' />
+      </table>
+    </worksheet>
+    <worksheet name='How many Extracts Have run and how many failed?'>
+      <repository-location id='HowmanyExtractsHaverunandhowmanyfailed' path='/t/project-griffon/workbooks/6_BackgroundTasksforExtracts' revision='' site='project-griffon' />
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run>How Much Time Did Extracts Take?</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='Background Tasks' name='historical_events+ (workgroup) (copy)' />
+          </datasources>
+          <datasource-dependencies datasource='historical_events+ (workgroup) (copy)'>
+            <column caption='created_at_local' datatype='datetime' default-format='*m/d/yyyy h:nn AMPM' name='[Calculation_1391203111401511]' role='dimension' type='ordinal'>
+              <calculation class='tableau' formula='[created_at]+[tz_offset_days]' scope-isolation='false' />
+            </column>
+            <column caption='Status of Job' datatype='string' name='[Calculation_2751203151629099]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='IF [progress] == -1 THEN&#10;  &quot;Pending&quot;&#10;ELSEIF [progress] &lt; 100 THEN&#10;  &quot;In Process&quot;&#10;ELSEIF [finish_code] == 0 THEN&#10;  &quot;Success&quot;&#10;ELSE&#10;  &quot;Error&quot;&#10;END' scope-isolation='false' />
+              <aliases>
+                <alias key='&quot;Error&quot;' value='Error' />
+                <alias key='&quot;In Process&quot;' value='In Process' />
+                <alias key='&quot;Pending&quot;' value='Pending' />
+                <alias key='&quot;Success&quot;' value='Success' />
+              </aliases>
+            </column>
+            <column caption='extract_task' datatype='string' name='[Job Name (copy 2)]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='[job_name]' />
+            </column>
+            <column caption='Extract' datatype='string' name='[Title (copy)]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='[title]' />
+            </column>
+            <column-instance column='[runtime_sec (copy)]' derivation='Avg' name='[avg:runtime_sec (copy):qk]' pivot='key' type='quantitative' />
+            <column caption='Backgrounder Id' datatype='string' name='[backgrounder_id]' role='dimension' type='nominal' />
+            <column caption='Completed At' datatype='datetime' name='[completed_at]' role='dimension' type='ordinal' />
+            <column caption='Created At' datatype='datetime' datatype-customized='true' name='[created_at]' role='dimension' type='ordinal' />
+            <column caption='Finish Code' datatype='integer' name='[finish_code]' role='dimension' type='ordinal' />
+            <column caption='Job Name' datatype='string' name='[job_name]' role='dimension' type='nominal'>
+              <aliases>
+                <alias key='&quot;Dataengine Configuration Reaper&quot;' value='Data Engine Configuration Reaper' />
+                <alias key='&quot;List Extracts for TDFS Propagation&quot;' value='List Extracts for File Store Propagation' />
+                <alias key='&quot;List Extracts for TDFS Reaping&quot;' value='List Extracts for File Store Reaping' />
+              </aliases>
+            </column>
+            <column caption='Site' datatype='string' name='[name]' role='dimension' type='nominal' />
+            <column-instance column='[Calculation_2751203151629099]' derivation='None' name='[none:Calculation_2751203151629099:nk]' pivot='key' type='nominal' />
+            <column-instance column='[Job Name (copy 2)]' derivation='None' name='[none:Job Name (copy 2):nk]' pivot='key' type='nominal' />
+            <column-instance column='[Title (copy)]' derivation='None' name='[none:Title (copy):nk]' pivot='key' type='nominal' />
+            <column-instance column='[backgrounder_id]' derivation='None' name='[none:backgrounder_id:nk]' pivot='key' type='nominal' />
+            <column-instance column='[created_at]' derivation='None' name='[none:created_at:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[job_name]' derivation='None' name='[none:job_name:nk]' pivot='key' type='nominal' />
+            <column-instance column='[name]' derivation='None' name='[none:name:nk]' pivot='key' type='nominal' />
+            <column-instance column='[runtime_sec_gant (copy)]' derivation='None' name='[none:runtime_sec_gant (copy):qk]' pivot='key' type='quantitative' />
+            <column caption='Progress' datatype='integer' name='[progress]' role='measure' type='quantitative' />
+            <column caption='runtime_sec (copy)' datatype='integer' default-format='n#,##0.0;-#,##0.0' name='[runtime_sec (copy)]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='IF ISNULL([started_at]) THEN&#10;  DATEDIFF(&apos;second&apos;, [created_at], NOW())&#10;ELSEIF ISNULL([completed_at]) THEN&#10;  DATEDIFF(&apos;second&apos;, [started_at], NOW())&#10;ELSE&#10;  DATEDIFF(&apos;second&apos;, [started_at], [completed_at])&#10;END' scope-isolation='false' />
+            </column>
+            <column caption='runtime_sec' datatype='integer' default-format='n#,##0;-#,##0' name='[runtime_sec_gant (copy)]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='IF ISNULL([started_at]) THEN&#10;  DATEDIFF(&apos;second&apos;, [created_at], NOW())&#10;ELSEIF ISNULL([completed_at]) THEN&#10;  DATEDIFF(&apos;second&apos;, [started_at], NOW())&#10;ELSE&#10;  DATEDIFF(&apos;second&apos;, [started_at], [completed_at])&#10;END' scope-isolation='false' />
+            </column>
+            <column caption='Started At' datatype='datetime' name='[started_at]' role='dimension' type='ordinal' />
+            <column-instance column='[Calculation_1391203111401511]' derivation='Day-Trunc' name='[tdy:Calculation_1391203111401511:ok]' pivot='key' type='ordinal' />
+            <column caption='Title' datatype='string' name='[title]' role='dimension' type='nominal' />
+            <column datatype='real' name='[tz_offset_days]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='0.041666666666666664' />
+            </column>
+          </datasource-dependencies>
+          <filter class='categorical' column='[historical_events+ (workgroup) (copy)].[Action (DAY(created_at_local))]'>
+            <groupfilter function='level-members' level='[tdy:Calculation_1391203111401511:ok]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[historical_events+ (workgroup) (copy)].[Action (Extract)]'>
+            <groupfilter function='level-members' level='[Title (copy)]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[historical_events+ (workgroup) (copy)].[Action (Status of Job)]'>
+            <groupfilter function='level-members' level='[Calculation_2751203151629099]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]' filter-group='26'>
+            <groupfilter function='level-members' level='[none:Calculation_2751203151629099:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[historical_events+ (workgroup) (copy)].[none:Job Name (copy 2):nk]' filter-group='46'>
+            <groupfilter function='level-members' level='[none:Job Name (copy 2):nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[historical_events+ (workgroup) (copy)].[none:Title (copy):nk]' filter-group='14'>
+            <groupfilter function='level-members' level='[none:Title (copy):nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[historical_events+ (workgroup) (copy)].[none:backgrounder_id:nk]' filter-group='45'>
+            <groupfilter function='level-members' level='[none:backgrounder_id:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='relative-date' column='[historical_events+ (workgroup) (copy)].[none:created_at:qk]' filter-group='40' first-period='-6' include-future='true' include-null='false' last-period='0' period-type='year' />
+          <filter class='categorical' column='[historical_events+ (workgroup) (copy)].[none:job_name:nk]' filter-group='15'>
+            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:job_name:nk]' member='&quot;Increment Extracts&quot;' />
+              <groupfilter function='member' level='[none:job_name:nk]' member='&quot;Refresh Extracts&quot;' />
+              <groupfilter function='member' level='[none:job_name:nk]' member='&quot;Tde Increment Extracts&quot;' />
+              <groupfilter function='member' level='[none:job_name:nk]' member='&quot;Tde Refresh Extracts&quot;' />
+            </groupfilter>
+          </filter>
+          <filter class='categorical' column='[historical_events+ (workgroup) (copy)].[none:name:nk]' filter-group='33'>
+            <groupfilter function='level-members' level='[none:name:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='quantitative' column='[historical_events+ (workgroup) (copy)].[none:runtime_sec_gant (copy):qk]' filter-group='31' included-values='in-range'>
+            <min>0</min>
+            <max>9001</max>
+          </filter>
+          <slices>
+            <column>[historical_events+ (workgroup) (copy)].[none:created_at:qk]</column>
+            <column>[historical_events+ (workgroup) (copy)].[none:Title (copy):nk]</column>
+            <column>[historical_events+ (workgroup) (copy)].[Action (DAY(created_at_local))]</column>
+            <column>[historical_events+ (workgroup) (copy)].[Action (Extract)]</column>
+            <column>[historical_events+ (workgroup) (copy)].[none:name:nk]</column>
+            <column>[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]</column>
+            <column>[historical_events+ (workgroup) (copy)].[Action (Status of Job)]</column>
+            <column>[historical_events+ (workgroup) (copy)].[none:runtime_sec_gant (copy):qk]</column>
+            <column>[historical_events+ (workgroup) (copy)].[none:job_name:nk]</column>
+            <column>[historical_events+ (workgroup) (copy)].[none:Job Name (copy 2):nk]</column>
+            <column>[historical_events+ (workgroup) (copy)].[none:backgrounder_id:nk]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <format attr='title' class='0' field='[historical_events+ (workgroup) (copy)].[avg:runtime_sec (copy):qk]' scope='rows' value='Avg. Runtime (sec)' />
+            <format attr='subtitle' class='0' field='[historical_events+ (workgroup) (copy)].[avg:runtime_sec (copy):qk]' scope='rows' value='' />
+            <format attr='auto-subtitle' class='0' field='[historical_events+ (workgroup) (copy)].[avg:runtime_sec (copy):qk]' scope='rows' value='true' />
+          </style-rule>
+          <style-rule element='worksheet'>
+            <format attr='display-field-labels' scope='cols' value='false' />
+          </style-rule>
+          <style-rule element='quick-filter'>
+            <format attr='title' field='[historical_events+ (workgroup) (copy)].[none:created_at:qk]' value='Time Range' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane id='2' selection-relaxation-option='selection-relaxation-disallow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]' />
+            </encodings>
+            <customized-tooltip>
+              <formatted-text>
+                <run bold='true' fontsize='11'>&lt;[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]&gt;</run>
+                <run fontcolor='#787878'>&#10;Date:  </run>
+                <run bold='true'>&lt;[historical_events+ (workgroup) (copy)].[tdy:Calculation_1391203111401511:ok]&gt;</run>
+                <run fontcolor='#787878'>&#10;Avg. Runtime:  </run>
+                <run bold='true'>&lt;[historical_events+ (workgroup) (copy)].[avg:runtime_sec (copy):qk]&gt;</run>
+                <run fontcolor='#898989' italic='true'>Æ </run>
+                <run bold='true'>seconds</run>
+              </formatted-text>
+            </customized-tooltip>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='false' />
+                <format attr='mark-labels-mode' value='range' />
+                <format attr='mark-labels-range-max' value='true' />
+                <format attr='mark-labels-range-min' value='false' />
+                <format attr='mark-labels-range-scope' value='multi-mark' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[historical_events+ (workgroup) (copy)].[avg:runtime_sec (copy):qk]</rows>
+        <cols>[historical_events+ (workgroup) (copy)].[tdy:Calculation_1391203111401511:ok]</cols>
+      </table>
+    </worksheet>
+    <worksheet name='How many sucess vs fails have i had each day'>
+      <repository-location id='Howmanysucessvsfailshaveihadeachday' path='/t/project-griffon/workbooks/6_BackgroundTasksforExtracts' revision='' site='project-griffon' />
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run>How Many Extracts Succeeded or Failed by Day?</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='Background Tasks' name='historical_events+ (workgroup) (copy)' />
+          </datasources>
+          <datasource-dependencies datasource='historical_events+ (workgroup) (copy)'>
+            <column caption='created_at_local' datatype='datetime' default-format='*m/d/yyyy h:nn AMPM' name='[Calculation_1391203111401511]' role='dimension' type='ordinal'>
+              <calculation class='tableau' formula='[created_at]+[tz_offset_days]' scope-isolation='false' />
+            </column>
+            <column caption='Status of Job' datatype='string' name='[Calculation_2751203151629099]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='IF [progress] == -1 THEN&#10;  &quot;Pending&quot;&#10;ELSEIF [progress] &lt; 100 THEN&#10;  &quot;In Process&quot;&#10;ELSEIF [finish_code] == 0 THEN&#10;  &quot;Success&quot;&#10;ELSE&#10;  &quot;Error&quot;&#10;END' scope-isolation='false' />
+              <aliases>
+                <alias key='&quot;Error&quot;' value='Error' />
+                <alias key='&quot;In Process&quot;' value='In Process' />
+                <alias key='&quot;Pending&quot;' value='Pending' />
+                <alias key='&quot;Success&quot;' value='Success' />
+              </aliases>
+            </column>
+            <column caption='extract_task' datatype='string' name='[Job Name (copy 2)]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='[job_name]' />
+            </column>
+            <column datatype='integer' name='[Number of Records]' role='measure' type='quantitative' user:auto-column='numrec'>
+              <calculation class='tableau' formula='1' />
+            </column>
+            <column caption='Extract' datatype='string' name='[Title (copy)]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='[title]' />
+            </column>
+            <column caption='Backgrounder Id' datatype='string' name='[backgrounder_id]' role='dimension' type='nominal' />
+            <column caption='Completed At' datatype='datetime' name='[completed_at]' role='dimension' type='ordinal' />
+            <column caption='Created At' datatype='datetime' datatype-customized='true' name='[created_at]' role='dimension' type='ordinal' />
+            <column caption='Finish Code' datatype='integer' name='[finish_code]' role='dimension' type='ordinal' />
+            <column caption='Job Name' datatype='string' name='[job_name]' role='dimension' type='nominal'>
+              <aliases>
+                <alias key='&quot;Dataengine Configuration Reaper&quot;' value='Data Engine Configuration Reaper' />
+                <alias key='&quot;List Extracts for TDFS Propagation&quot;' value='List Extracts for File Store Propagation' />
+                <alias key='&quot;List Extracts for TDFS Reaping&quot;' value='List Extracts for File Store Reaping' />
+              </aliases>
+            </column>
+            <column caption='Site' datatype='string' name='[name]' role='dimension' type='nominal' />
+            <column-instance column='[Calculation_2751203151629099]' derivation='None' name='[none:Calculation_2751203151629099:nk]' pivot='key' type='nominal' />
+            <column-instance column='[Job Name (copy 2)]' derivation='None' name='[none:Job Name (copy 2):nk]' pivot='key' type='nominal' />
+            <column-instance column='[Title (copy)]' derivation='None' name='[none:Title (copy):nk]' pivot='key' type='nominal' />
+            <column-instance column='[backgrounder_id]' derivation='None' name='[none:backgrounder_id:nk]' pivot='key' type='nominal' />
+            <column-instance column='[created_at]' derivation='None' name='[none:created_at:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[job_name]' derivation='None' name='[none:job_name:nk]' pivot='key' type='nominal' />
+            <column-instance column='[name]' derivation='None' name='[none:name:nk]' pivot='key' type='nominal' />
+            <column-instance column='[runtime_sec_gant (copy)]' derivation='None' name='[none:runtime_sec_gant (copy):qk]' pivot='key' type='quantitative' />
+            <column caption='Progress' datatype='integer' name='[progress]' role='measure' type='quantitative' />
+            <column caption='runtime_sec' datatype='integer' default-format='n#,##0;-#,##0' name='[runtime_sec_gant (copy)]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='IF ISNULL([started_at]) THEN&#10;  DATEDIFF(&apos;second&apos;, [created_at], NOW())&#10;ELSEIF ISNULL([completed_at]) THEN&#10;  DATEDIFF(&apos;second&apos;, [started_at], NOW())&#10;ELSE&#10;  DATEDIFF(&apos;second&apos;, [started_at], [completed_at])&#10;END' scope-isolation='false' />
+            </column>
+            <column caption='Started At' datatype='datetime' name='[started_at]' role='dimension' type='ordinal' />
+            <column-instance column='[Number of Records]' derivation='Sum' name='[sum:Number of Records:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Calculation_1391203111401511]' derivation='Day-Trunc' name='[tdy:Calculation_1391203111401511:ok]' pivot='key' type='ordinal' />
+            <column caption='Title' datatype='string' name='[title]' role='dimension' type='nominal' />
+            <column datatype='real' name='[tz_offset_days]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='0.041666666666666664' />
+            </column>
+          </datasource-dependencies>
+          <filter class='categorical' column='[historical_events+ (workgroup) (copy)].[Action (DAY(created_at_local))]'>
+            <groupfilter function='level-members' level='[tdy:Calculation_1391203111401511:ok]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[historical_events+ (workgroup) (copy)].[Action (Extract)]'>
+            <groupfilter function='level-members' level='[Title (copy)]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[historical_events+ (workgroup) (copy)].[Action (Status of Job)]'>
+            <groupfilter function='level-members' level='[Calculation_2751203151629099]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]' filter-group='26'>
+            <groupfilter function='level-members' level='[none:Calculation_2751203151629099:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[historical_events+ (workgroup) (copy)].[none:Job Name (copy 2):nk]' filter-group='46'>
+            <groupfilter function='level-members' level='[none:Job Name (copy 2):nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[historical_events+ (workgroup) (copy)].[none:Title (copy):nk]' filter-group='14'>
+            <groupfilter function='level-members' level='[none:Title (copy):nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[historical_events+ (workgroup) (copy)].[none:backgrounder_id:nk]' filter-group='45'>
+            <groupfilter function='level-members' level='[none:backgrounder_id:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='relative-date' column='[historical_events+ (workgroup) (copy)].[none:created_at:qk]' filter-group='40' first-period='-6' include-future='true' include-null='false' last-period='0' period-type='year' />
+          <filter class='categorical' column='[historical_events+ (workgroup) (copy)].[none:job_name:nk]' filter-group='15'>
+            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:job_name:nk]' member='&quot;Increment Extracts&quot;' />
+              <groupfilter function='member' level='[none:job_name:nk]' member='&quot;Refresh Extracts&quot;' />
+              <groupfilter function='member' level='[none:job_name:nk]' member='&quot;Tde Increment Extracts&quot;' />
+              <groupfilter function='member' level='[none:job_name:nk]' member='&quot;Tde Refresh Extracts&quot;' />
+            </groupfilter>
+          </filter>
+          <filter class='categorical' column='[historical_events+ (workgroup) (copy)].[none:name:nk]' filter-group='33'>
+            <groupfilter function='level-members' level='[none:name:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='quantitative' column='[historical_events+ (workgroup) (copy)].[none:runtime_sec_gant (copy):qk]' filter-group='31' included-values='in-range'>
+            <min>0</min>
+            <max>9001</max>
+          </filter>
+          <slices>
+            <column>[historical_events+ (workgroup) (copy)].[none:created_at:qk]</column>
+            <column>[historical_events+ (workgroup) (copy)].[none:Title (copy):nk]</column>
+            <column>[historical_events+ (workgroup) (copy)].[Action (Extract)]</column>
+            <column>[historical_events+ (workgroup) (copy)].[none:name:nk]</column>
+            <column>[historical_events+ (workgroup) (copy)].[Action (DAY(created_at_local))]</column>
+            <column>[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]</column>
+            <column>[historical_events+ (workgroup) (copy)].[Action (Status of Job)]</column>
+            <column>[historical_events+ (workgroup) (copy)].[none:runtime_sec_gant (copy):qk]</column>
+            <column>[historical_events+ (workgroup) (copy)].[none:job_name:nk]</column>
+            <column>[historical_events+ (workgroup) (copy)].[none:Job Name (copy 2):nk]</column>
+            <column>[historical_events+ (workgroup) (copy)].[none:backgrounder_id:nk]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <format attr='title' class='0' field='[historical_events+ (workgroup) (copy)].[sum:Number of Records:qk]' scope='rows' value='Number of Jobs' />
+            <format attr='subtitle' class='0' field='[historical_events+ (workgroup) (copy)].[sum:Number of Records:qk]' scope='rows' value='' />
+            <format attr='auto-subtitle' class='0' field='[historical_events+ (workgroup) (copy)].[sum:Number of Records:qk]' scope='rows' value='true' />
+            <format attr='display' class='0' field='[historical_events+ (workgroup) (copy)].[sum:Number of Records:qk]' scope='rows' value='false' />
+          </style-rule>
+          <style-rule element='worksheet'>
+            <format attr='display-field-labels' scope='cols' value='false' />
+          </style-rule>
+          <style-rule element='refline'>
+            <format attr='text-align' id='refline0' value='center' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-disallow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Bar' />
+            <encodings>
+              <color column='[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]' />
+              <text column='[historical_events+ (workgroup) (copy)].[sum:Number of Records:qk]' />
+            </encodings>
+            <reference-line axis-column='[historical_events+ (workgroup) (copy)].[sum:Number of Records:qk]' enable-instant-analytics='true' formula='total' id='refline0' label-type='value' scope='per-cell' value-column='[historical_events+ (workgroup) (copy)].[sum:Number of Records:qk]' z-order='1' />
+            <customized-tooltip>
+              <formatted-text>
+                <run bold='true' fontsize='11'>&lt;[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]&gt;</run>
+                <run fontcolor='#787878'>&#10;Date:  </run>
+                <run bold='true'>&lt;[historical_events+ (workgroup) (copy)].[tdy:Calculation_1391203111401511:ok]&gt;</run>
+                <run fontcolor='#787878'>&#10;Number Of Tasks:  </run>
+                <run bold='true'>&lt;[historical_events+ (workgroup) (copy)].[sum:Number of Records:qk]&gt;</run>
+              </formatted-text>
+            </customized-tooltip>
+            <style>
+              <style-rule element='cell'>
+                <format attr='text-align' value='center' />
+                <format attr='vertical-align' value='center' />
+              </style-rule>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='true' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[historical_events+ (workgroup) (copy)].[sum:Number of Records:qk]</rows>
+        <cols>[historical_events+ (workgroup) (copy)].[tdy:Calculation_1391203111401511:ok]</cols>
+      </table>
+    </worksheet>
+    <worksheet name='Sheet 1'>
+      <table>
+        <view>
+          <datasources />
+          <aggregation value='true' />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+          </pane>
+        </panes>
+        <rows />
+        <cols />
+      </table>
+    </worksheet>
+    <worksheet name='What Extracts Have Run in the past 24 hours?'>
+      <repository-location id='WhatExtractsHaveRuninthepast24hours' path='/t/project-griffon/workbooks/6_BackgroundTasksforExtracts' revision='' site='project-griffon' />
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run>What Extracts Ran on this Server?</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='Background Tasks' name='historical_events+ (workgroup) (copy)' />
+          </datasources>
+          <datasource-dependencies datasource='historical_events+ (workgroup) (copy)'>
+            <column caption='created_at_local' datatype='datetime' default-format='*m/d/yyyy h:nn AMPM' name='[Calculation_1391203111401511]' role='dimension' type='ordinal'>
+              <calculation class='tableau' formula='[created_at]+[tz_offset_days]' scope-isolation='false' />
+            </column>
+            <column caption='completed_at_local_nonull' datatype='datetime' name='[Calculation_1491203151102885]' role='dimension' type='ordinal'>
+              <calculation class='tableau' formula='IF [Calculation_2751203151629099] = &quot;Pending&quot; OR [Calculation_2751203151629099] = &quot;In Process&quot; OR [Calculation_2751203151629099] = &quot;Waiting&quot; THEN NOW() &#13;&#10;ELSE [completed_at] END&#13;&#10;+tz_offset_days' scope-isolation='false' />
+            </column>
+            <column caption='Status of Job' datatype='string' name='[Calculation_2751203151629099]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='IF [progress] == -1 THEN&#10;  &quot;Pending&quot;&#10;ELSEIF [progress] &lt; 100 THEN&#10;  &quot;In Process&quot;&#10;ELSEIF [finish_code] == 0 THEN&#10;  &quot;Success&quot;&#10;ELSE&#10;  &quot;Error&quot;&#10;END' scope-isolation='false' />
+              <aliases>
+                <alias key='&quot;Error&quot;' value='Error' />
+                <alias key='&quot;In Process&quot;' value='In Process' />
+                <alias key='&quot;Pending&quot;' value='Pending' />
+                <alias key='&quot;Success&quot;' value='Success' />
+              </aliases>
+            </column>
+            <column caption='started_at_local' datatype='datetime' default-format='*m/d/yyyy h:nn AMPM' name='[Calculation_4091203151130500]' role='dimension' type='ordinal'>
+              <calculation class='tableau' formula='[started_at]+[tz_offset_days]' scope-isolation='false' />
+            </column>
+            <column caption='runtime_sec_gant' datatype='real' name='[Calculation_7711203151750168]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='datediff(&apos;second&apos;,[Calculation_1391203111401511],[Calculation_1491203151102885])/(60 * 60 * 24)' scope-isolation='false' />
+            </column>
+            <column caption='extract_task' datatype='string' name='[Job Name (copy 2)]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='[job_name]' />
+            </column>
+            <column caption='Extract' datatype='string' name='[Title (copy)]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='[title]' />
+            </column>
+            <column caption='Backgrounder Id' datatype='string' name='[backgrounder_id]' role='dimension' type='nominal' />
+            <column caption='Completed At' datatype='datetime' name='[completed_at]' role='dimension' type='ordinal' />
+            <column caption='completed_at_local' datatype='datetime' name='[completed_at_local (copy)]' role='dimension' type='ordinal'>
+              <calculation class='tableau' formula='[completed_at]+[tz_offset_days]' scope-isolation='false' />
+            </column>
+            <column caption='Created At' datatype='datetime' datatype-customized='true' name='[created_at]' role='dimension' type='ordinal' />
+            <column caption='Finish Code' datatype='integer' name='[finish_code]' role='dimension' type='ordinal' />
+            <column caption='Id' datatype='integer' name='[id]' role='dimension' type='ordinal' />
+            <column caption='Job Name' datatype='string' name='[job_name]' role='dimension' type='nominal'>
+              <aliases>
+                <alias key='&quot;Dataengine Configuration Reaper&quot;' value='Data Engine Configuration Reaper' />
+                <alias key='&quot;List Extracts for TDFS Propagation&quot;' value='List Extracts for File Store Propagation' />
+                <alias key='&quot;List Extracts for TDFS Reaping&quot;' value='List Extracts for File Store Reaping' />
+              </aliases>
+            </column>
+            <column caption='Site' datatype='string' name='[name]' role='dimension' type='nominal' />
+            <column-instance column='[Calculation_1391203111401511]' derivation='None' name='[none:Calculation_1391203111401511:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[Calculation_1391203111401511]' derivation='None' name='[none:Calculation_1391203111401511:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Calculation_1491203151102885]' derivation='None' name='[none:Calculation_1491203151102885:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Calculation_2751203151629099]' derivation='None' name='[none:Calculation_2751203151629099:nk]' pivot='key' type='nominal' />
+            <column-instance column='[Calculation_4091203151130500]' derivation='None' name='[none:Calculation_4091203151130500:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[Calculation_7711203151750168]' derivation='None' name='[none:Calculation_7711203151750168:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Job Name (copy 2)]' derivation='None' name='[none:Job Name (copy 2):nk]' pivot='key' type='nominal' />
+            <column-instance column='[Title (copy)]' derivation='None' name='[none:Title (copy):nk]' pivot='key' type='nominal' />
+            <column-instance column='[backgrounder_id]' derivation='None' name='[none:backgrounder_id:nk]' pivot='key' type='nominal' />
+            <column-instance column='[completed_at_local (copy)]' derivation='None' name='[none:completed_at_local (copy):ok]' pivot='key' type='ordinal' />
+            <column-instance column='[created_at]' derivation='None' name='[none:created_at:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[id]' derivation='None' name='[none:id:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[job_name]' derivation='None' name='[none:job_name:nk]' pivot='key' type='nominal' />
+            <column-instance column='[name]' derivation='None' name='[none:name:nk]' pivot='key' type='nominal' />
+            <column-instance column='[notes]' derivation='None' name='[none:notes:nk]' pivot='key' type='nominal' />
+            <column-instance column='[priority]' derivation='None' name='[none:priority:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[processed_on_worker]' derivation='None' name='[none:processed_on_worker:nk]' pivot='key' type='nominal' />
+            <column-instance column='[runtime_sec_gant (copy)]' derivation='None' name='[none:runtime_sec_gant (copy):qk]' pivot='key' type='quantitative' />
+            <column-instance column='[title]' derivation='None' name='[none:title:nk]' pivot='key' type='nominal' />
+            <column caption='Notes' datatype='string' name='[notes]' role='dimension' type='nominal' />
+            <column aggregation='Sum' caption='Priority' datatype='integer' name='[priority]' role='dimension' type='ordinal' />
+            <column caption='Processed On Worker' datatype='string' name='[processed_on_worker]' role='dimension' type='nominal' />
+            <column caption='Progress' datatype='integer' name='[progress]' role='measure' type='quantitative' />
+            <column caption='runtime_sec' datatype='integer' default-format='n#,##0;-#,##0' name='[runtime_sec_gant (copy)]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='IF ISNULL([started_at]) THEN&#10;  DATEDIFF(&apos;second&apos;, [created_at], NOW())&#10;ELSEIF ISNULL([completed_at]) THEN&#10;  DATEDIFF(&apos;second&apos;, [started_at], NOW())&#10;ELSE&#10;  DATEDIFF(&apos;second&apos;, [started_at], [completed_at])&#10;END' scope-isolation='false' />
+            </column>
+            <column caption='Started At' datatype='datetime' name='[started_at]' role='dimension' type='ordinal' />
+            <column caption='Title' datatype='string' name='[title]' role='dimension' type='nominal' />
+            <column datatype='real' name='[tz_offset_days]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='0.041666666666666664' />
+            </column>
+          </datasource-dependencies>
+          <filter class='categorical' column='[historical_events+ (workgroup) (copy)].[Action (Status of Job)]'>
+            <groupfilter function='level-members' level='[Calculation_2751203151629099]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <sort class='natural' column='[historical_events+ (workgroup) (copy)].[none:Calculation_1391203111401511:ok]' direction='DESC' />
+          <filter class='categorical' column='[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]' filter-group='26'>
+            <groupfilter function='level-members' level='[none:Calculation_2751203151629099:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[historical_events+ (workgroup) (copy)].[none:Job Name (copy 2):nk]' filter-group='46'>
+            <groupfilter function='level-members' level='[none:Job Name (copy 2):nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[historical_events+ (workgroup) (copy)].[none:Title (copy):nk]' filter-group='14'>
+            <groupfilter function='level-members' level='[none:Title (copy):nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[historical_events+ (workgroup) (copy)].[none:backgrounder_id:nk]' filter-group='45'>
+            <groupfilter function='level-members' level='[none:backgrounder_id:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='relative-date' column='[historical_events+ (workgroup) (copy)].[none:created_at:qk]' filter-group='39' first-period='-23' include-future='true' include-null='false' last-period='0' period-type='year' />
+          <filter class='categorical' column='[historical_events+ (workgroup) (copy)].[none:job_name:nk]' filter-group='15'>
+            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:job_name:nk]' member='&quot;Increment Extracts&quot;' />
+              <groupfilter function='member' level='[none:job_name:nk]' member='&quot;Refresh Extracts&quot;' />
+              <groupfilter function='member' level='[none:job_name:nk]' member='&quot;Tde Increment Extracts&quot;' />
+              <groupfilter function='member' level='[none:job_name:nk]' member='&quot;Tde Refresh Extracts&quot;' />
+            </groupfilter>
+          </filter>
+          <filter class='categorical' column='[historical_events+ (workgroup) (copy)].[none:name:nk]' filter-group='33'>
+            <groupfilter function='level-members' level='[none:name:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='quantitative' column='[historical_events+ (workgroup) (copy)].[none:runtime_sec_gant (copy):qk]' filter-group='31' included-values='in-range'>
+            <min>0</min>
+            <max>9001</max>
+          </filter>
+          <slices>
+            <column>[historical_events+ (workgroup) (copy)].[none:created_at:qk]</column>
+            <column>[historical_events+ (workgroup) (copy)].[none:Title (copy):nk]</column>
+            <column>[historical_events+ (workgroup) (copy)].[none:name:nk]</column>
+            <column>[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]</column>
+            <column>[historical_events+ (workgroup) (copy)].[Action (Status of Job)]</column>
+            <column>[historical_events+ (workgroup) (copy)].[none:runtime_sec_gant (copy):qk]</column>
+            <column>[historical_events+ (workgroup) (copy)].[none:Job Name (copy 2):nk]</column>
+            <column>[historical_events+ (workgroup) (copy)].[none:job_name:nk]</column>
+            <column>[historical_events+ (workgroup) (copy)].[none:backgrounder_id:nk]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <format attr='display' class='1' field='[historical_events+ (workgroup) (copy)].[none:Calculation_1391203111401511:qk]' scope='cols' value='false' />
+            <format attr='title' class='0' field='[historical_events+ (workgroup) (copy)].[none:Calculation_1391203111401511:qk]' scope='cols' value='' />
+            <format attr='subtitle' class='0' field='[historical_events+ (workgroup) (copy)].[none:Calculation_1391203111401511:qk]' scope='cols' value='' />
+            <format attr='auto-subtitle' class='0' field='[historical_events+ (workgroup) (copy)].[none:Calculation_1391203111401511:qk]' scope='cols' value='false' />
+            <encoding attr='space' class='0' field='[historical_events+ (workgroup) (copy)].[none:Calculation_1391203111401511:qk]' field-type='quantitative' minor-show='false' scope='cols' type='space' />
+            <encoding attr='space' class='0' field='[historical_events+ (workgroup) (copy)].[none:Calculation_1491203151102885:qk]' field-type='quantitative' fold='true' scope='cols' synchronized='true' type='space' />
+            <format attr='display' class='0' field='[historical_events+ (workgroup) (copy)].[none:Calculation_1491203151102885:qk]' scope='cols' value='false' />
+          </style-rule>
+          <style-rule element='cell'>
+            <format attr='text-format' field='[historical_events+ (workgroup) (copy)].[none:Calculation_4091203151130500:ok]' value='*m/d/yyyy AMPM h:nn:ss' />
+            <format attr='text-format' field='[historical_events+ (workgroup) (copy)].[none:Calculation_1391203111401511:qk]' value='*m/d/yyyy AMPM h:nn:ss' />
+            <format attr='text-format' field='[historical_events+ (workgroup) (copy)].[none:Calculation_1391203111401511:ok]' value='*m/d/yyyy AMPM h:nn:ss' />
+          </style-rule>
+          <style-rule element='header'>
+            <format attr='width' field='[historical_events+ (workgroup) (copy)].[none:Title (copy):nk]' value='196' />
+          </style-rule>
+          <style-rule element='label'>
+            <format attr='display' field='[historical_events+ (workgroup) (copy)].[none:Calculation_1391203111401511:ok]' value='false' />
+            <format attr='display' field='[historical_events+ (workgroup) (copy)].[none:id:ok]' value='false' />
+          </style-rule>
+          <style-rule element='worksheet'>
+            <format attr='display-field-labels' scope='rows' value='false' />
+          </style-rule>
+          <style-rule element='table-div'>
+            <format attr='line-visibility' scope='rows' value='off' />
+          </style-rule>
+          <style-rule element='quick-filter'>
+            <format attr='title' field='[historical_events+ (workgroup) (copy)].[none:runtime_sec_gant (copy):qk]' value='Runtime (sec)' />
+            <format attr='title' field='[historical_events+ (workgroup) (copy)].[none:created_at:qk]' value='Timeline' />
+            <format attr='title' field='[historical_events+ (workgroup) (copy)].[none:job_name:nk]' value='Task' />
+            <format attr='title' field='[historical_events+ (workgroup) (copy)].[none:backgrounder_id:nk]' value='Backgrounder' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane id='1' selection-relaxation-option='selection-relaxation-disallow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <lod column='[historical_events+ (workgroup) (copy)].[none:backgrounder_id:nk]' />
+              <lod column='[historical_events+ (workgroup) (copy)].[none:id:ok]' />
+              <color column='[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]' />
+              <lod column='[historical_events+ (workgroup) (copy)].[none:job_name:nk]' />
+              <lod column='[historical_events+ (workgroup) (copy)].[none:Calculation_4091203151130500:ok]' />
+              <lod column='[historical_events+ (workgroup) (copy)].[none:priority:ok]' />
+              <lod column='[historical_events+ (workgroup) (copy)].[none:notes:nk]' />
+              <lod column='[historical_events+ (workgroup) (copy)].[none:completed_at_local (copy):ok]' />
+              <lod column='[historical_events+ (workgroup) (copy)].[none:processed_on_worker:nk]' />
+              <lod column='[historical_events+ (workgroup) (copy)].[none:runtime_sec_gant (copy):qk]' />
+              <lod column='[historical_events+ (workgroup) (copy)].[none:title:nk]' />
+            </encodings>
+            <customized-tooltip>
+              <formatted-text>
+                <run bold='true' fontsize='11'>&lt;[historical_events+ (workgroup) (copy)].[none:Title (copy):nk]&gt;</run>
+                <run fontcolor='#787878'>&#10;Task ID:  </run>
+                <run bold='true'>&lt;[historical_events+ (workgroup) (copy)].[none:id:ok]&gt;</run>
+                <run fontcolor='#787878'>&#10;Task:  </run>
+                <run bold='true'>&lt;[historical_events+ (workgroup) (copy)].[none:job_name:nk]&gt;</run>
+                <run fontcolor='#787878'>&#10;Status of Job:  </run>
+                <run bold='true'>&lt;[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]&gt;</run>
+                <run fontcolor='#787878'>&#10;Created at:  </run>
+                <run bold='true'>&lt;[historical_events+ (workgroup) (copy)].[none:Calculation_1391203111401511:ok]&gt;</run>
+                <run fontcolor='#787878'>&#10;Started At:  </run>
+                <run bold='true'>&lt;[historical_events+ (workgroup) (copy)].[none:Calculation_4091203151130500:ok]&gt;</run>
+                <run fontcolor='#787878'>&#10;Completed At:  </run>
+                <run bold='true'>&lt;[historical_events+ (workgroup) (copy)].[none:completed_at_local (copy):ok]&gt;</run>
+                <run fontcolor='#787878'>&#10;Runtime:  </run>
+                <run bold='true'>&lt;[historical_events+ (workgroup) (copy)].[none:runtime_sec_gant (copy):qk]&gt; sec</run>
+                <run fontcolor='#787878'>&#10;Priority:  </run>
+                <run bold='true'>&lt;[historical_events+ (workgroup) (copy)].[none:priority:ok]&gt;</run>
+                <run fontcolor='#787878'>&#10;Backgrounder:  </run>
+                <run bold='true'>&lt;[historical_events+ (workgroup) (copy)].[none:processed_on_worker:nk]&gt;</run>
+                <run fontcolor='#787878'>&#10;Backgrounder ID:  </run>
+                <run bold='true'>&lt;[historical_events+ (workgroup) (copy)].[none:backgrounder_id:nk]&gt; </run>
+                <run fontcolor='#898989'>Æ&#10;</run>
+                <run fontcolor='#555555'>&#10;&lt;[historical_events+ (workgroup) (copy)].[none:notes:nk]&gt;</run>
+              </formatted-text>
+            </customized-tooltip>
+          </pane>
+          <pane id='2' selection-relaxation-option='selection-relaxation-disallow' x-axis-name='[historical_events+ (workgroup) (copy)].[none:Calculation_1491203151102885:qk]'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Shape' />
+            <encodings>
+              <lod column='[historical_events+ (workgroup) (copy)].[none:backgrounder_id:nk]' />
+              <lod column='[historical_events+ (workgroup) (copy)].[none:id:ok]' />
+              <color column='[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]' />
+              <lod column='[historical_events+ (workgroup) (copy)].[none:job_name:nk]' />
+              <lod column='[historical_events+ (workgroup) (copy)].[none:Calculation_4091203151130500:ok]' />
+              <lod column='[historical_events+ (workgroup) (copy)].[none:priority:ok]' />
+              <lod column='[historical_events+ (workgroup) (copy)].[none:notes:nk]' />
+              <lod column='[historical_events+ (workgroup) (copy)].[none:completed_at_local (copy):ok]' />
+              <lod column='[historical_events+ (workgroup) (copy)].[none:processed_on_worker:nk]' />
+              <lod column='[historical_events+ (workgroup) (copy)].[none:runtime_sec_gant (copy):qk]' />
+              <lod column='[historical_events+ (workgroup) (copy)].[none:title:nk]' />
+              <shape column='[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]' />
+            </encodings>
+            <customized-tooltip>
+              <formatted-text>
+                <run bold='true' fontsize='11'>&lt;[historical_events+ (workgroup) (copy)].[none:Title (copy):nk]&gt;</run>
+                <run fontcolor='#787878'>&#10;Task ID:  </run>
+                <run bold='true'>&lt;[historical_events+ (workgroup) (copy)].[none:id:ok]&gt;</run>
+                <run fontcolor='#787878'>&#10;Task:  </run>
+                <run bold='true'>&lt;[historical_events+ (workgroup) (copy)].[none:job_name:nk]&gt;</run>
+                <run fontcolor='#787878'>&#10;Status of Job:  </run>
+                <run bold='true'>&lt;[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]&gt;</run>
+                <run fontcolor='#787878'>&#10;Created at:  </run>
+                <run bold='true'>&lt;[historical_events+ (workgroup) (copy)].[none:Calculation_1391203111401511:ok]&gt;</run>
+                <run fontcolor='#787878'>&#10;Started At:  </run>
+                <run bold='true'>&lt;[historical_events+ (workgroup) (copy)].[none:Calculation_4091203151130500:ok]&gt;</run>
+                <run fontcolor='#787878'>&#10;Completed At:  </run>
+                <run bold='true'>&lt;[historical_events+ (workgroup) (copy)].[none:completed_at_local (copy):ok]&gt;</run>
+                <run fontcolor='#787878'>&#10;Runtime:  </run>
+                <run bold='true'>&lt;[historical_events+ (workgroup) (copy)].[none:runtime_sec_gant (copy):qk]&gt; sec</run>
+                <run fontcolor='#787878'>&#10;Priority:  </run>
+                <run bold='true'>&lt;[historical_events+ (workgroup) (copy)].[none:priority:ok]&gt;</run>
+                <run fontcolor='#787878'>&#10;Backgrounder:  </run>
+                <run bold='true'>&lt;[historical_events+ (workgroup) (copy)].[none:processed_on_worker:nk]&gt;</run>
+                <run fontcolor='#787878'>&#10;Backgrounder ID:  </run>
+                <run bold='true'>&lt;[historical_events+ (workgroup) (copy)].[none:backgrounder_id:nk]&gt; </run>
+                <run fontcolor='#898989'>Æ&#10;</run>
+                <run fontcolor='#555555'>&#10;&lt;[historical_events+ (workgroup) (copy)].[none:notes:nk]&gt;</run>
+              </formatted-text>
+            </customized-tooltip>
+          </pane>
+          <pane id='3' selection-relaxation-option='selection-relaxation-disallow' x-axis-name='[historical_events+ (workgroup) (copy)].[none:Calculation_1391203111401511:qk]'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <lod column='[historical_events+ (workgroup) (copy)].[none:backgrounder_id:nk]' />
+              <lod column='[historical_events+ (workgroup) (copy)].[none:id:ok]' />
+              <color column='[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]' />
+              <lod column='[historical_events+ (workgroup) (copy)].[none:job_name:nk]' />
+              <lod column='[historical_events+ (workgroup) (copy)].[none:Calculation_4091203151130500:ok]' />
+              <lod column='[historical_events+ (workgroup) (copy)].[none:priority:ok]' />
+              <lod column='[historical_events+ (workgroup) (copy)].[none:notes:nk]' />
+              <lod column='[historical_events+ (workgroup) (copy)].[none:completed_at_local (copy):ok]' />
+              <lod column='[historical_events+ (workgroup) (copy)].[none:processed_on_worker:nk]' />
+              <lod column='[historical_events+ (workgroup) (copy)].[none:runtime_sec_gant (copy):qk]' />
+              <lod column='[historical_events+ (workgroup) (copy)].[none:title:nk]' />
+              <size column='[historical_events+ (workgroup) (copy)].[none:Calculation_7711203151750168:qk]' />
+            </encodings>
+            <customized-tooltip>
+              <formatted-text>
+                <run bold='true' fontsize='11'>&lt;[historical_events+ (workgroup) (copy)].[none:Title (copy):nk]&gt;</run>
+                <run fontcolor='#787878'>&#10;Task ID:  </run>
+                <run bold='true'>&lt;[historical_events+ (workgroup) (copy)].[none:id:ok]&gt;</run>
+                <run fontcolor='#787878'>&#10;Task:  </run>
+                <run bold='true'>&lt;[historical_events+ (workgroup) (copy)].[none:job_name:nk]&gt;</run>
+                <run fontcolor='#787878'>&#10;Status of Job:  </run>
+                <run bold='true'>&lt;[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]&gt;</run>
+                <run fontcolor='#787878'>&#10;Created at:  </run>
+                <run bold='true'>&lt;[historical_events+ (workgroup) (copy)].[none:Calculation_1391203111401511:ok]&gt;</run>
+                <run fontcolor='#787878'>&#10;Started At:  </run>
+                <run bold='true'>&lt;[historical_events+ (workgroup) (copy)].[none:Calculation_4091203151130500:ok]&gt;</run>
+                <run fontcolor='#787878'>&#10;Completed At:  </run>
+                <run bold='true'>&lt;[historical_events+ (workgroup) (copy)].[none:completed_at_local (copy):ok]&gt;</run>
+                <run fontcolor='#787878'>&#10;Runtime:  </run>
+                <run bold='true'>&lt;[historical_events+ (workgroup) (copy)].[none:runtime_sec_gant (copy):qk]&gt; sec</run>
+                <run fontcolor='#787878'>&#10;Priority:  </run>
+                <run bold='true'>&lt;[historical_events+ (workgroup) (copy)].[none:priority:ok]&gt;</run>
+                <run fontcolor='#787878'>&#10;Backgrounder:  </run>
+                <run bold='true'>&lt;[historical_events+ (workgroup) (copy)].[none:processed_on_worker:nk]&gt;</run>
+                <run fontcolor='#787878'>&#10;Backgrounder ID:  </run>
+                <run bold='true'>&lt;[historical_events+ (workgroup) (copy)].[none:backgrounder_id:nk]&gt; </run>
+                <run fontcolor='#898989'>Æ&#10;</run>
+                <run fontcolor='#555555'>&#10;&lt;[historical_events+ (workgroup) (copy)].[none:notes:nk]&gt;</run>
+              </formatted-text>
+            </customized-tooltip>
+          </pane>
+        </panes>
+        <rows>([historical_events+ (workgroup) (copy)].[none:Calculation_1391203111401511:ok] / ([historical_events+ (workgroup) (copy)].[none:id:ok] / [historical_events+ (workgroup) (copy)].[none:Title (copy):nk]))</rows>
+        <cols>([historical_events+ (workgroup) (copy)].[none:Calculation_1391203111401511:qk] + [historical_events+ (workgroup) (copy)].[none:Calculation_1491203151102885:qk])</cols>
+      </table>
+    </worksheet>
+  </worksheets>
+  <dashboards>
+    <dashboard name='Background Tasks for Extracts'>
+      <repository-location id='BackgroundTasksforExtracts' path='/t/project-griffon/workbooks/6_BackgroundTasksforExtracts' revision='' site='project-griffon' />
+      <style />
+      <size minheight='625' minwidth='1020' />
+      <datasources>
+        <datasource caption='Background Tasks' name='historical_events+ (workgroup) (copy)' />
+      </datasources>
+      <datasource-dependencies datasource='historical_events+ (workgroup) (copy)'>
+        <column caption='Extract' datatype='string' name='[Title (copy)]' role='dimension' type='nominal'>
+          <calculation class='tableau' formula='[title]' />
+        </column>
+        <column caption='Backgrounder Id' datatype='string' name='[backgrounder_id]' role='dimension' type='nominal' />
+        <column caption='Created At' datatype='datetime' datatype-customized='true' name='[created_at]' role='dimension' type='ordinal' />
+        <column caption='Job Name' datatype='string' name='[job_name]' role='dimension' type='nominal'>
+          <aliases>
+            <alias key='&quot;Dataengine Configuration Reaper&quot;' value='Data Engine Configuration Reaper' />
+            <alias key='&quot;List Extracts for TDFS Propagation&quot;' value='List Extracts for File Store Propagation' />
+            <alias key='&quot;List Extracts for TDFS Reaping&quot;' value='List Extracts for File Store Reaping' />
+          </aliases>
+        </column>
+        <column caption='Site' datatype='string' name='[name]' role='dimension' type='nominal' />
+        <column-instance column='[Title (copy)]' derivation='None' name='[none:Title (copy):nk]' pivot='key' type='nominal' />
+        <column-instance column='[backgrounder_id]' derivation='None' name='[none:backgrounder_id:nk]' pivot='key' type='nominal' />
+        <column-instance column='[created_at]' derivation='None' name='[none:created_at:qk]' pivot='key' type='quantitative' />
+        <column-instance column='[job_name]' derivation='None' name='[none:job_name:nk]' pivot='key' type='nominal' />
+        <column-instance column='[name]' derivation='None' name='[none:name:nk]' pivot='key' type='nominal' />
+        <column-instance column='[runtime_sec_gant (copy)]' derivation='None' name='[none:runtime_sec_gant (copy):qk]' pivot='key' type='quantitative' />
+        <column caption='runtime_sec' datatype='integer' default-format='n#,##0;-#,##0' name='[runtime_sec_gant (copy)]' role='measure' type='quantitative'>
+          <calculation class='tableau' formula='IF ISNULL([started_at]) THEN&#10;  DATEDIFF(&apos;second&apos;, [created_at], NOW())&#10;ELSEIF ISNULL([completed_at]) THEN&#10;  DATEDIFF(&apos;second&apos;, [started_at], NOW())&#10;ELSE&#10;  DATEDIFF(&apos;second&apos;, [started_at], [completed_at])&#10;END' scope-isolation='false' />
+        </column>
+      </datasource-dependencies>
+      <zones use-insets='false'>
+        <zone h='100000' id='2' type='layout-basic' w='100000' x='0' y='0'>
+          <zone fixed-size='30' forceUpdate='true' h='6245' id='3' is-fixed='true' type='text' w='98482' x='759' y='848'>
+            <formatted-text>
+              <run bold='true' fontsize='16'>How Have Extracts Performed on This Server? </run>
+              <run bold='true' fontcolor='#898989' fontsize='10'>(Click to filter)</run>
+            </formatted-text>
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+              <format attr='margin-top' value='0' />
+              <format attr='margin-right' value='0' />
+              <format attr='margin-left' value='0' />
+            </zone-style>
+          </zone>
+          <zone fixed-size='364' h='32716' id='4' is-fixed='true' name='What Extracts Have Run in the past 24 hours?' w='98482' x='759' y='17205'>
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+              <format attr='margin-right' value='0' />
+              <format attr='margin-left' value='0' />
+            </zone-style>
+          </zone>
+          <zone h='10112' id='13' mode='dropdown' name='What Extracts Have Run in the past 24 hours?' param='[historical_events+ (workgroup) (copy)].[none:Title (copy):nk]' type='filter' values='relevant' w='11083' x='759' y='7093'>
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+              <format attr='margin-left' value='0' />
+            </zone-style>
+          </zone>
+          <zone h='10112' id='15' mode='dropdown' name='What Extracts Have Run in the past 24 hours?' param='[historical_events+ (workgroup) (copy)].[none:name:nk]' type='filter' values='relevant' w='11245' x='47168' y='7093'>
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+            </zone-style>
+          </zone>
+          <zone h='10112' id='17' name='Extract Legend' show-title='false' w='30069' x='69172' y='7093'>
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+              <format attr='margin-right' value='0' />
+            </zone-style>
+          </zone>
+          <zone h='8178' id='14' name='How many Extracts Have run and how many failed?' param='[historical_events+ (workgroup) (copy)].[none:created_at:qk]' show-domain='false' show-null-ctrls='false' type='filter' w='49473' x='759' y='49921'>
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+              <format attr='margin-left' value='0' />
+            </zone-style>
+          </zone>
+          <zone h='41053' id='11' name='How many Extracts Have run and how many failed?' w='49468' x='759' y='58099'>
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+              <format attr='margin-bottom' value='0' />
+              <format attr='margin-left' value='0' />
+            </zone-style>
+          </zone>
+          <zone h='41053' id='12' name='How many sucess vs fails have i had each day' w='49014' x='50227' y='58099'>
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+              <format attr='margin-right' value='0' />
+              <format attr='margin-bottom' value='0' />
+            </zone-style>
+          </zone>
+          <zone fixed-size='205' h='8178' id='19' is-fixed='true' name='Extract 7 legend' show-title='false' w='49009' x='50232' y='49921'>
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+              <format attr='margin-right' value='0' />
+            </zone-style>
+          </zone>
+          <zone h='10112' id='23' name='What Extracts Have Run in the past 24 hours?' param='[historical_events+ (workgroup) (copy)].[none:runtime_sec_gant (copy):qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='10759' x='58413' y='7093'>
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+            </zone-style>
+          </zone>
+          <zone h='10112' id='27' name='What Extracts Have Run in the past 24 hours?' param='[historical_events+ (workgroup) (copy)].[none:created_at:qk]' show-domain='false' show-null-ctrls='false' type='filter' w='12042' x='23644' y='7093'>
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+            </zone-style>
+          </zone>
+          <zone h='10112' id='31' mode='checkdropdown' name='What Extracts Have Run in the past 24 hours?' param='[historical_events+ (workgroup) (copy)].[none:job_name:nk]' show-apply='true' type='filter' values='relevant' w='11802' x='11842' y='7093'>
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+            </zone-style>
+          </zone>
+          <zone h='10112' id='34' mode='dropdown' name='What Extracts Have Run in the past 24 hours?' param='[historical_events+ (workgroup) (copy)].[none:backgrounder_id:nk]' type='filter' values='relevant' w='11482' x='35686' y='7093'>
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+            </zone-style>
+          </zone>
+          <zone-style>
+            <format attr='border-color' value='#000000' />
+            <format attr='border-style' value='none' />
+            <format attr='border-width' value='0' />
+            <format attr='margin' value='4' />
+            <format attr='margin-top' value='8' />
+            <format attr='margin-right' value='8' />
+            <format attr='margin-bottom' value='8' />
+            <format attr='margin-left' value='8' />
+          </zone-style>
+        </zone>
+      </zones>
+    </dashboard>
+  </dashboards>
+  <windows source-height='30'>
+    <window class='dashboard' maximized='true' name='Background Tasks for Extracts'>
+      <viewpoints>
+        <viewpoint name='Extract 7 legend'>
+          <zoom type='entire-view' />
+        </viewpoint>
+        <viewpoint name='Extract Legend'>
+          <zoom type='entire-view' />
+        </viewpoint>
+        <viewpoint name='How many Extracts Have run and how many failed?'>
+          <zoom type='fit-width' />
+          <highlight field='[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]'>
+            <bucket-selection />
+          </highlight>
+        </viewpoint>
+        <viewpoint name='How many sucess vs fails have i had each day'>
+          <zoom type='entire-view' />
+        </viewpoint>
+        <viewpoint name='What Extracts Have Run in the past 24 hours?'>
+          <zoom type='fit-width' />
+        </viewpoint>
+      </viewpoints>
+      <active id='-1' />
+    </window>
+    <window class='worksheet' name='Extract 7 legend'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+            <card pane-specification-id='0' param='[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]' type='color' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+        </edge>
+      </cards>
+      <viewpoint>
+        <highlight>
+          <color-one-way>
+            <field>[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]</field>
+          </color-one-way>
+        </highlight>
+      </viewpoint>
+    </window>
+    <window class='worksheet' name='Extract Legend'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+            <card pane-specification-id='0' param='[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]' type='color' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+        </edge>
+      </cards>
+      <viewpoint>
+        <highlight>
+          <color-one-way>
+            <field>[historical_events+ (workgroup) (copy)].[Extract Jobs]</field>
+            <field>[historical_events+ (workgroup) (copy)].[none:Calculation_1391203111401511:qk]</field>
+            <field>[historical_events+ (workgroup) (copy)].[none:Calculation_1491203151102885:qk]</field>
+            <field>[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]</field>
+            <field>[historical_events+ (workgroup) (copy)].[none:Job Name (copy):nk]</field>
+            <field>[historical_events+ (workgroup) (copy)].[none:Title (copy):nk]</field>
+            <field>[historical_events+ (workgroup) (copy)].[none:created_at:qk]</field>
+            <field>[historical_events+ (workgroup) (copy)].[none:name:nk]</field>
+            <field>[historical_events+ (workgroup) (copy)].[none:notes:nk]</field>
+            <field>[historical_events+ (workgroup) (copy)].[none:priority:ok]</field>
+            <field>[historical_events+ (workgroup) (copy)].[none:processed_on_worker:nk]</field>
+            <field>[historical_events+ (workgroup) (copy)].[none:title:nk]</field>
+            <field>[historical_events+ (workgroup) (copy)].[thr:Calculation_1391203111401511:qk]</field>
+            <field>[historical_events+ (workgroup) (copy)].[thr:created_at:qk]</field>
+            <field>[historical_events+ (workgroup) (copy)].[yr:Calculation_1391203111401511:ok]</field>
+            <field>[historical_events+ (workgroup) (copy)].[yr:Calculation_1491203151102885:ok]</field>
+            <field>[historical_events+ (workgroup) (copy)].[yr:created_at:ok]</field>
+          </color-one-way>
+        </highlight>
+      </viewpoint>
+    </window>
+    <window class='worksheet' name='How many Extracts Have run and how many failed?'>
+      <cards>
+        <edge name='left'>
+          <strip size='300'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card param='[historical_events+ (workgroup) (copy)].[none:Job Name (copy 2):nk]' type='filter' />
+            <card pane-specification-id='2' param='[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <viewpoint>
+        <highlight>
+          <color-one-way>
+            <field>[historical_events+ (workgroup) (copy)].[Extract Jobs]</field>
+            <field>[historical_events+ (workgroup) (copy)].[attr:Calculation_4091203151130500:ok]</field>
+            <field>[historical_events+ (workgroup) (copy)].[none:Calculation_1391203111401511:qk]</field>
+            <field>[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]</field>
+            <field>[historical_events+ (workgroup) (copy)].[none:Calculation_4091203151130500:qk]</field>
+            <field>[historical_events+ (workgroup) (copy)].[none:Calculation_5103211714721906689:nk]</field>
+            <field>[historical_events+ (workgroup) (copy)].[none:Job Name (copy):nk]</field>
+            <field>[historical_events+ (workgroup) (copy)].[none:created_at:qk]</field>
+            <field>[historical_events+ (workgroup) (copy)].[none:job_name:nk]</field>
+            <field>[historical_events+ (workgroup) (copy)].[none:runtime_sec_gant (copy):qk]</field>
+            <field>[historical_events+ (workgroup) (copy)].[tdy:Calculation_1391203111401511:qk]</field>
+            <field>[historical_events+ (workgroup) (copy)].[yr:Calculation_1391203111401511:ok]</field>
+            <field>[historical_events+ (workgroup) (copy)].[yr:Calculation_4091203151130500:ok]</field>
+          </color-one-way>
+        </highlight>
+      </viewpoint>
+    </window>
+    <window class='worksheet' name='How many sucess vs fails have i had each day'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+            <card pane-specification-id='0' param='[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]' type='color' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+        </edge>
+      </cards>
+      <viewpoint>
+        <highlight>
+          <color-one-way>
+            <field>[historical_events+ (workgroup) (copy)].[Extract Jobs]</field>
+            <field>[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]</field>
+            <field>[historical_events+ (workgroup) (copy)].[none:created_at:qk]</field>
+            <field>[historical_events+ (workgroup) (copy)].[none:id:ok]</field>
+            <field>[historical_events+ (workgroup) (copy)].[yr:Calculation_1391203111401511:ok]</field>
+          </color-one-way>
+        </highlight>
+      </viewpoint>
+    </window>
+    <window class='worksheet' name='What Extracts Have Run in the past 24 hours?'>
+      <cards>
+        <edge name='left'>
+          <strip size='296'>
+            <card size='33' type='pages' />
+            <card size='240' type='filters' />
+            <card size='396' type='marks' />
+            <card pane-specification-id='2' param='[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]' type='color' />
+            <card pane-specification-id='2' param='[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]' type='shape' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+        </edge>
+      </cards>
+      <viewpoint>
+        <highlight>
+          <color-one-way>
+            <field>[historical_events+ (workgroup) (copy)].[:Measure Names]</field>
+            <field>[historical_events+ (workgroup) (copy)].[Extract Jobs]</field>
+            <field>[historical_events+ (workgroup) (copy)].[none:Calculation_1391203111401511:qk]</field>
+            <field>[historical_events+ (workgroup) (copy)].[none:Calculation_1491203151102885:qk]</field>
+            <field>[historical_events+ (workgroup) (copy)].[none:Calculation_2751203151629099:nk]</field>
+            <field>[historical_events+ (workgroup) (copy)].[none:Job Name (copy 2):nk]</field>
+            <field>[historical_events+ (workgroup) (copy)].[none:Job Name (copy):nk]</field>
+            <field>[historical_events+ (workgroup) (copy)].[none:Title (copy):nk]</field>
+            <field>[historical_events+ (workgroup) (copy)].[none:backgrounder_id:nk]</field>
+            <field>[historical_events+ (workgroup) (copy)].[none:created_at:qk]</field>
+            <field>[historical_events+ (workgroup) (copy)].[none:id:ok]</field>
+            <field>[historical_events+ (workgroup) (copy)].[none:job_name:nk]</field>
+            <field>[historical_events+ (workgroup) (copy)].[none:name:nk]</field>
+            <field>[historical_events+ (workgroup) (copy)].[none:notes:nk]</field>
+            <field>[historical_events+ (workgroup) (copy)].[none:priority:ok]</field>
+            <field>[historical_events+ (workgroup) (copy)].[none:processed_on_worker:nk]</field>
+            <field>[historical_events+ (workgroup) (copy)].[none:title:nk]</field>
+            <field>[historical_events+ (workgroup) (copy)].[thr:Calculation_1391203111401511:qk]</field>
+            <field>[historical_events+ (workgroup) (copy)].[thr:created_at:qk]</field>
+            <field>[historical_events+ (workgroup) (copy)].[yr:Calculation_1391203111401511:ok]</field>
+            <field>[historical_events+ (workgroup) (copy)].[yr:Calculation_1491203151102885:ok]</field>
+            <field>[historical_events+ (workgroup) (copy)].[yr:Calculation_4091203151130500:ok]</field>
+            <field>[historical_events+ (workgroup) (copy)].[yr:Calculation_8730110143551883:ok]</field>
+            <field>[historical_events+ (workgroup) (copy)].[yr:completed_at_local (copy):ok]</field>
+            <field>[historical_events+ (workgroup) (copy)].[yr:created_at:ok]</field>
+          </color-one-way>
+        </highlight>
+      </viewpoint>
+    </window>
+    <window class='worksheet' name='Sheet 1'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+    </window>
+  </windows>
+</workbook>
